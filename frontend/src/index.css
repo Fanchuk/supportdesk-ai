@@ -1,0 +1,31 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.rc-pagination-green .rc-pagination-item-active {
+    background-color: #00b67a;
+    border-color: #00b67a;
+}
+
+.rc-pagination-green .rc-pagination-item-active a {
+    color: white;
+}
+
+.rc-pagination-green .rc-pagination-item:hover {
+    border-color: #00b67a;
+}
+
+.rc-pagination-green .rc-pagination-item:hover a {
+    color: #00b67a;
+}
+
+.rc-pagination-green .rc-pagination-prev button,
+.rc-pagination-green .rc-pagination-next button {
+    color: #6b7280;
+}
+
+.rc-pagination-green .rc-pagination-prev:hover button,
+.rc-pagination-green .rc-pagination-next:hover button {
+    color: #00b67a;
+    border-color: #00b67a;
+}
