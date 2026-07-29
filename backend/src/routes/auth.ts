@@ -91,5 +91,46 @@ router.get('/me', async (req: Request, res: Response) => {
     }
 })
 
+router.patch('/me', async (req: Request, res: Response) => {
+    const authHeader = req.headers.authorization
+    if (!authHeader) return res.status(401).json({ error: 'No token' })
+
+    try {
+        const { verifyToken } = await import('../lib/auth')
+        const token = authHeader.split(' ')[1]
+        const decoded = verifyToken(token)
+
+        const schema = z.object({
+            name: z.string().min(2).optional(),
+            email: z.string().email().optional(),
+            phone: z.string().optional(),
+            currentPassword: z.string().optional(),
+            newPassword: z.string().min(6).optional(),
+        })
+
+        const body = schema.parse(req.body)
+        const updateData: Record<string, string> = {}
+
+        if (body.name) updateData.name = body.name
+        if (body.email) updateData.email = body.email
+
+        if (body.currentPassword && body.newPassword) {
+            const [user] = await db.select().from(users).where(eq(users.id, decoded.id))
+            const valid = await comparePassword(body.currentPassword, user.password)
+            if (!valid) return res.status(400).json({ error: 'Current password is incorrect' })
+            updateData.password = await hashPassword(body.newPassword)
+        }
+
+        const [updated] = await db.update(users)
+            .set(updateData)
+            .where(eq(users.id, decoded.id))
+            .returning()
+
+        res.json({ id: updated.id, name: updated.name, email: updated.email, role: updated.role })
+    } catch {
+        res.status(400).json({ error: 'Invalid data' })
+    }
+})
+
 export default router
 

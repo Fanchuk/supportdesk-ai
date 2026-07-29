@@ -1,6 +1,9 @@
 import express from 'express'
 import cors from 'cors'
 import dotenv from 'dotenv'
+import http from 'http'
+import { WebSocketServer, WebSocket } from 'ws'
+
 import authRoutes from './routes/auth'
 import dashboardRoutes from './routes/dashboard'
 import ticketRoutes from './routes/tickets'
@@ -10,6 +13,11 @@ import assignmentRuleRoutes from './routes/assigmentRules'
 import automationRuleRoutes from './routes/automationRules'
 import customStatusRoutes from './routes/customStatuses'
 import slaRouter from './routes/sla'
+import savedAnswersRoutes from './routes/savedAnswers'
+import usersRoutes from './routes/users'
+import jointSessionRoutes from './routes/jointSessions'
+import emailIntegrationsRoutes from './routes/emailIntegrations'
+import reportsRoutes from './routes/reports'
 
 dotenv.config()
 
@@ -37,8 +45,63 @@ app.use('/api/assignment-rules', assignmentRuleRoutes)
 app.use('/api/automation-rules', automationRuleRoutes)
 app.use('/api/sla', slaRouter)
 app.use('/api/custom-statuses', customStatusRoutes)
+app.use('/api/saved-answers', savedAnswersRoutes)
+app.use('/api/users', usersRoutes)
+app.use('/api/joint-sessions', jointSessionRoutes)
+app.use('/api/email-integrations', emailIntegrationsRoutes)
+app.use('/api/reports', reportsRoutes)
 
-app.listen(PORT, () => {
+const server = http.createServer(app)
+
+const wss = new WebSocketServer({ server })
+
+const rooms = new Map<number, Set<WebSocket>>()
+
+wss.on('connection', (ws) => {
+    let currentSession: number | null = null
+
+   ws.on('message', (raw) => {
+    try {
+        const data = JSON.parse(raw.toString())
+
+        if (data.type === 'join') {
+            currentSession = data.sessionId
+            if (currentSession === undefined || currentSession === null) {
+                 throw new Error("Не вказано ID сесії")
+            }
+            if (!rooms.has(currentSession)) {
+                rooms.set(currentSession, new Set())
+            }
+            rooms.get(currentSession)!.add(ws)
+        }
+
+        if (data.type === 'message' && currentSession) {
+            const room = rooms.get(currentSession)
+            if (room) {
+                room.forEach((client) => {
+                    if (client !== ws && client.readyState === WebSocket.OPEN) {
+                        client.send(JSON.stringify(data))
+                    }
+                })
+            }
+        }
+    } catch (error) {
+        const errorMessage = error instanceof Error ? error.message : 'Невідома помилка парсингу'
+        ws.send(JSON.stringify({
+            type: 'error',
+            message: `Помилка WebSocket: ${errorMessage}`
+        }))
+    }
+})
+
+    ws.on('close', () => {
+        if (currentSession) {
+            rooms.get(currentSession)?.delete(ws)
+        }
+    })
+})
+
+server.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`)
 })
 

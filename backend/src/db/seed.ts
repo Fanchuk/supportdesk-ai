@@ -1,10 +1,26 @@
 import { db } from './index'
-import { users, tickets, messages, teams, assignmentRules, automationRules, slaPolicies, customStatuses } from './schema'
+import {
+    users,
+    tickets,
+    messages,
+    teams,
+    assignmentRules,
+    automationRules,
+    slaPolicies,
+    customStatuses,
+    savedAnswers,
+    jointSessions,
+    jointSessionMessages,
+    jointSessionAgents,
+    emailIntegrations,
+} from './schema'
 import bcrypt from 'bcryptjs'
 import { sql } from 'drizzle-orm'
 
 async function seed() {
-    await db.execute(sql`TRUNCATE TABLE messages, tickets, users, assignment_rules, automation_rules, teams, sla_policies, custom_statuses RESTART IDENTITY CASCADE`)
+    await db.execute(
+        sql`TRUNCATE TABLE messages, tickets, users, assignment_rules, automation_rules, teams, sla_policies, custom_statuses, saved_answers, joint_session_messages, joint_session_agents, joint_sessions, email_integrations RESTART IDENTITY CASCADE`
+    )
 
     const [supportTeam, engineeringTeam, financeTeam, productTeam] = await db
         .insert(teams)
@@ -70,8 +86,8 @@ async function seed() {
             category: 'Technical',
             createdById: admin.id,
             teamId: supportTeam.id,
-            createdAt: new Date('2026-07-12T10:00:00'),
-            updatedAt: new Date('2026-07-13T12:30:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 2),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 30),
         },
         {
             title: 'Payment failed after checkout',
@@ -81,8 +97,8 @@ async function seed() {
             category: 'Billing',
             createdById: agent1.id,
             teamId: financeTeam.id,
-            createdAt: new Date('2026-07-13T11:15:00'),
-            updatedAt: new Date('2026-07-14T15:45:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 5),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 2),
         },
         {
             title: 'Cannot reset password',
@@ -92,8 +108,8 @@ async function seed() {
             category: 'Login',
             createdById: agent2.id,
             teamId: supportTeam.id,
-            createdAt: new Date('2026-07-14T09:20:00'),
-            updatedAt: new Date('2026-07-15T10:00:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 20),
         },
         {
             title: 'Export to CSV wrong date',
@@ -103,8 +119,8 @@ async function seed() {
             category: 'General',
             createdById: manager.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-15T14:00:00'),
-            updatedAt: new Date('2026-07-16T16:30:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 18),
         },
         {
             title: 'Feature request dark mode',
@@ -114,8 +130,8 @@ async function seed() {
             category: 'General',
             createdById: agent1.id,
             teamId: productTeam.id,
-            createdAt: new Date('2026-07-17T08:30:00'),
-            updatedAt: new Date('2026-07-18T11:20:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
         },
         {
             title: 'API error 500 on login',
@@ -125,8 +141,8 @@ async function seed() {
             category: 'Technical',
             createdById: admin.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-19T13:45:00'),
-            updatedAt: new Date('2026-07-20T17:10:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 1),
         },
         {
             title: 'Invoice not received',
@@ -136,8 +152,8 @@ async function seed() {
             category: 'Billing',
             createdById: agent2.id,
             teamId: financeTeam.id,
-            createdAt: new Date('2026-07-21T10:10:00'),
-            updatedAt: new Date('2026-07-22T14:00:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
         },
         {
             title: 'App crashes on startup',
@@ -147,8 +163,8 @@ async function seed() {
             category: 'Technical',
             createdById: agent1.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-23T16:20:00'),
-            updatedAt: new Date('2026-07-24T09:15:00'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 2),
         },
         {
             title: 'Login page broken',
@@ -158,8 +174,8 @@ async function seed() {
             category: 'Technical',
             createdById: admin.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-11'),
-            updatedAt: new Date('2026-07-12'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
         },
         {
             title: 'Billing address wrong',
@@ -169,8 +185,8 @@ async function seed() {
             category: 'Billing',
             createdById: agent1.id,
             teamId: financeTeam.id,
-            createdAt: new Date('2026-07-10'),
-            updatedAt: new Date('2026-07-11'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 3),
         },
         {
             title: 'Dark mode issue',
@@ -180,8 +196,8 @@ async function seed() {
             category: 'Technical',
             createdById: agent2.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-09'),
-            updatedAt: new Date('2026-07-10'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4),
         },
         {
             title: 'Password change not working',
@@ -191,8 +207,8 @@ async function seed() {
             category: 'Login',
             createdById: manager.id,
             teamId: supportTeam.id,
-            createdAt: new Date('2026-07-08'),
-            updatedAt: new Date('2026-07-09'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 4),
         },
         {
             title: 'Export PDF broken',
@@ -202,8 +218,8 @@ async function seed() {
             category: 'Technical',
             createdById: admin.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-07'),
-            updatedAt: new Date('2026-07-08'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
         },
         {
             title: 'Subscription renewal failed',
@@ -213,8 +229,8 @@ async function seed() {
             category: 'Billing',
             createdById: agent1.id,
             teamId: financeTeam.id,
-            createdAt: new Date('2026-07-06'),
-            updatedAt: new Date('2026-07-07'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 6),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 5),
         },
         {
             title: 'Notification not sending',
@@ -224,8 +240,8 @@ async function seed() {
             category: 'Technical',
             createdById: agent2.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-05'),
-            updatedAt: new Date('2026-07-06'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 10),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 9),
         },
         {
             title: 'Account locked out',
@@ -235,8 +251,8 @@ async function seed() {
             category: 'Login',
             createdById: manager.id,
             teamId: supportTeam.id,
-            createdAt: new Date('2026-07-04'),
-            updatedAt: new Date('2026-07-05'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 12),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 11),
         },
         {
             title: 'Search not working',
@@ -246,8 +262,8 @@ async function seed() {
             category: 'Technical',
             createdById: admin.id,
             teamId: engineeringTeam.id,
-            createdAt: new Date('2026-07-03'),
-            updatedAt: new Date('2026-07-04'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 15),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 14),
         },
         {
             title: 'Wrong currency displayed',
@@ -257,8 +273,8 @@ async function seed() {
             category: 'Billing',
             createdById: agent1.id,
             teamId: financeTeam.id,
-            createdAt: new Date('2026-07-02'),
-            updatedAt: new Date('2026-07-03'),
+            createdAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 20),
+            updatedAt: new Date(Date.now() - 1000 * 60 * 60 * 24 * 19),
         },
     ]
 
@@ -322,6 +338,83 @@ async function seed() {
         { name: 'Standard Support', priority: 'medium', firstResponseHours: 4, resolutionHours: 24, isActive: true },
         { name: 'Low Priority Support', priority: 'low', firstResponseHours: 8, resolutionHours: 72, isActive: false },
     ])
+
+    await db.insert(savedAnswers).values([
+        { title: 'Welcome Greeting', category: 'Greeting', body: 'Hello! Thank you for contacting our support team. My name is [Agent Name] and I will be happy to assist you today. Could you please provide more details about your issue?' },
+        { title: 'Password Reset Instructions', category: 'Technical', body: 'To reset your password, please follow these steps:\n1. Go to the login page\n2. Click "Forgot Password"\n3. Enter your email address\n4. Check your inbox for the reset link\n5. Follow the instructions in the email.' },
+        { title: 'Billing Inquiry Response', category: 'Billing', body: 'Thank you for reaching out about your billing concern. I understand how important this is to you. Could you please provide your account number or the email associated with your account so I can look into this right away?' },
+        { title: 'Issue Escalation Notice', category: 'Escalation', body: 'I understand your frustration and I want to make sure this gets resolved as quickly as possible. I am escalating your ticket to our senior support team who specializes in this type of issue. You can expect a response within 2-4 hours.' },
+        { title: 'Closing Message', category: 'Closing', body: "I am glad we could resolve your issue today! If you have any further questions or need assistance in the future, please don't hesitate to reach out. Have a wonderful day!" },
+        { title: 'Refund Processing', category: 'Billing', body: 'I have initiated the refund process for your account. Please note that refunds typically take 5-7 business days to appear on your statement depending on your bank. You will receive a confirmation email shortly.' },
+    ])
+    console.log('✅ Saved answers created')
+
+    await db.insert(emailIntegrations).values([
+        {
+            email: 'support@company.com',
+            provider: 'Gmail',
+            host: 'imap.gmail.com',
+            port: 993,
+            login: 'support@company.com',
+            isActive: true,
+            receivedToday: 68,
+            sentToday: 45,
+            lastSyncAt: new Date(Date.now() - 1000 * 60 * 2),
+        },
+        {
+            email: 'billing@company.com',
+            provider: 'Outlook',
+            host: 'outlook.office365.com',
+            port: 993,
+            login: 'billing@company.com',
+            isActive: true,
+            receivedToday: 41,
+            sentToday: 29,
+            lastSyncAt: new Date(Date.now() - 1000 * 60 * 5),
+        },
+        {
+            email: 'noreply@company.com',
+            provider: 'SMTP',
+            host: 'smtp.company.com',
+            port: 587,
+            login: 'noreply@company.com',
+            isActive: false,
+            receivedToday: 15,
+            sentToday: 13,
+            lastSyncAt: new Date(Date.now() - 1000 * 60 * 60),
+        },
+    ])
+    console.log('✅ Email integrations created')
+
+    const [session1] = await db.insert(jointSessions).values({ ticketId: createdTickets[2].id, isActive: true }).returning()
+    const [session2] = await db.insert(jointSessions).values({ ticketId: createdTickets[5].id, isActive: true }).returning()
+    const [session3] = await db.insert(jointSessions).values({ ticketId: createdTickets[7].id, isActive: true }).returning()
+    const [session4] = await db.insert(jointSessions).values({ ticketId: createdTickets[0].id, isActive: true }).returning()
+
+    await db.insert(jointSessionAgents).values([
+        { sessionId: session1.id, userId: manager.id },
+        { sessionId: session1.id, userId: agent1.id },
+        { sessionId: session2.id, userId: agent2.id },
+        { sessionId: session2.id, userId: admin.id },
+        { sessionId: session3.id, userId: agent1.id },
+        { sessionId: session3.id, userId: agent2.id },
+        { sessionId: session3.id, userId: manager.id },
+        { sessionId: session4.id, userId: manager.id },
+    ])
+
+    await db.insert(jointSessionMessages).values([
+        { sessionId: session1.id, authorId: manager.id, body: 'I checked the email logs — the reset link was sent but might have expired.' },
+        { sessionId: session1.id, authorId: agent1.id, body: 'Should I generate a new one manually?' },
+        { sessionId: session1.id, authorId: manager.id, body: 'Yes, go ahead. Also ask the customer to check spam.' },
+        { sessionId: session2.id, authorId: agent2.id, body: 'The error seems to be coming from the auth service. Checking logs now.' },
+        { sessionId: session2.id, authorId: admin.id, body: 'I see it too — looks like a DB connection timeout. Restarting the pool.' },
+        { sessionId: session3.id, authorId: agent1.id, body: 'Customer sent a crash report. It is related to the new build pushed yesterday.' },
+        { sessionId: session3.id, authorId: agent2.id, body: 'Confirmed. Rolling back the build now.' },
+        { sessionId: session3.id, authorId: manager.id, body: 'Good catch. Let the customer know we identified the issue.' },
+        { sessionId: session4.id, authorId: manager.id, body: 'Just picked this up. Asking the customer for more details.' },
+    ])
+
+    console.log('✅ Joint sessions created')
 
     process.exit(0)
 }

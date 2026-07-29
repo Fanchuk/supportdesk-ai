@@ -9,7 +9,7 @@ const router = Router()
 
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
     try {
-    const result = await db.execute(sql`
+        const result = await db.execute(sql`
       SELECT 
         t.id,
         t.name,
@@ -28,7 +28,7 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
       ORDER BY t.name ASC
     `)
 
-    res.json(result.rows)
+        res.json(result.rows)
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: 'Server error' })
@@ -66,7 +66,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
     try {
         const schema = z.object({
             name: z.string().min(2),
-            description: z.string().optional()
+            description: z.string().optional(),
         })
 
         const body = schema.parse(req.body)
@@ -83,6 +83,44 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
     } catch (error) {
         console.error(error)
         res.status(400).json({ error: 'Invalid data' })
+    }
+})
+
+router.post('/:id/members', authenticate, async (req: AuthRequest, res: Response) => {
+    try {
+        const schema = z.object({ userId: z.number() })
+        const { userId } = schema.parse(req.body)
+        const teamId = parseInt(req.params.id as string)
+
+        const [user] = await db
+            .update(users)
+            .set({ teamId })
+            .where(eq(users.id, userId))
+            .returning()
+
+        if (!user) return res.status(404).json({ error: 'User not found' })
+        res.json(user)
+    } catch (error) {
+        console.error(error)
+        res.status(400).json({ error: 'Invalid data' })
+    }
+})
+
+router.delete('/:id/members/:userId', authenticate, async (req: AuthRequest, res: Response) => {
+    try {
+        const userId = parseInt(req.params.userId as string)
+
+        const [user] = await db
+            .update(users)
+            .set({ teamId: null })
+            .where(eq(users.id, userId))
+            .returning()
+
+        if (!user) return res.status(404).json({ error: 'User not found' })
+        res.json(user)
+    } catch (error) {
+        console.error(error)
+        res.status(400).json({ error: 'Server error' })
     }
 })
 
