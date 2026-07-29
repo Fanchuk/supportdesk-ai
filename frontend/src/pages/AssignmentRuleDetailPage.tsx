@@ -33,7 +33,7 @@ export default function AssignmentRuleDetailPage() {
                 <div className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 shadow-sm">
                     <div className="flex items-start justify-between gap-4 mb-4">
                         <h1 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{rule.name}</h1>
-                        <span className={`text-xs font-medium px-3 py-1 rounded-full flex-shrink-0 ${rule.is_active || rule.isActive ? 'bg-[#e4faef] text-[#00b67a] dark:bg-[#00b67a]/10' : 'bg-gray-100 text-gray-400 dark:bg-gray-800'}`}>
+                        <span className={`text-xs font-medium px-3 py-1 rounded-full flex-shrink-0 ${rule.is_active || rule.isActive ? 'bg-[#e8f3ff] text-[#0A86F5] dark:bg-[#0A86F5]/10' : 'bg-gray-100 text-gray-400 dark:bg-gray-800'}`}>
                             {rule.is_active || rule.isActive ? '● Active' : '○ Inactive'}
                         </span>
                     </div>
@@ -52,8 +52,8 @@ export default function AssignmentRuleDetailPage() {
                             { icon: Tag, label: 'Created', value: rule.created_at ? formatDistanceToNow(new Date(rule.created_at), { addSuffix: true }) : '—' },
                         ].map(({ icon: Icon, label, value }) => (
                             <div key={label} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-transparent dark:border-gray-800">
-                                <div className="w-8 h-8 rounded-lg bg-[rgba(0,182,122,0.1)] flex items-center justify-center flex-shrink-0">
-                                    <Icon size={14} className="text-[#00b67a]" />
+                                <div className="w-8 h-8 rounded-lg bg-[rgba(10,134,245,0.1)] flex items-center justify-center flex-shrink-0">
+                                    <Icon size={14} className="text-[#0A86F5]" />
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400 dark:text-gray-500">{label}</p>
@@ -70,7 +70,7 @@ export default function AssignmentRuleDetailPage() {
                     </h2>
                     <div className="flex flex-wrap gap-2">
                         {(rule.keywords as string[])?.map((k) => (
-                            <span key={k} className="px-3 py-1 bg-[rgba(0,182,122,0.08)] dark:bg-[rgba(0,182,122,0.15)] text-[#00b67a] text-sm font-mono rounded-lg">
+                            <span key={k} className="px-3 py-1 bg-[rgba(10,134,245,0.08)] dark:bg-[rgba(10,134,245,0.15)] text-[#0A86F5] text-sm font-mono rounded-lg">
                                 {k}
                             </span>
                         ))}

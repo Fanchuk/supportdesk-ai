@@ -1,6 +1,16 @@
 import api from '../lib/api'
 
-export const getDashboardStats = (month?: number, year?: number) =>
+export interface DashboardStats {
+    open: number
+    inProgress: number
+    closed: number
+    total: number
+    percentOpen: number
+    percentInProgress: number
+    percentClosed: number
+}
+
+export const getDashboardStats = (month?: number, year?: number): Promise<DashboardStats> =>
     api.get('/dashboard/stats', { params: { month, year } }).then(r => r.data)
 
 export const getResponseTrend = (days: string) =>

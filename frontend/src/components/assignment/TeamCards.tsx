@@ -3,7 +3,7 @@ import { Users } from 'lucide-react'
 import { useQuery } from '@tanstack/react-query'
 import { getTeams } from '../../services/teams'
 import Spinner from '../ui/Spinner'
-import TeamDetailModal from '../../pages/TeamDetailModal'
+import TeamDetailModal from '../teamWork/TeamDetailModal'
 
 export default function TeamCards() {
     const [selected, setSelected] = useState<any | null>(null)
@@ -21,10 +21,10 @@ export default function TeamCards() {
                     <div
                         key={t.id}
                         onClick={() => setSelected(t)}
-                        className="bg-white border border-[#e7e7e7] rounded-[20px] p-5 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all"
+                        className="bg-white border border-[#e7e7e7] rounded-[20px] p-5 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all"
                     >
                         <div className="flex items-center gap-2 mb-4">
-                            <Users size={18} className="text-[#00b67a]" />
+                            <Users size={18} className="text-[#0A86F5]" />
                             <span className="text-base font-semibold text-[#202224]">{t.name}</span>
                         </div>
                         <div className="flex flex-col gap-2 text-sm">

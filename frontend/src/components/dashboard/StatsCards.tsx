@@ -10,14 +10,15 @@ export default function StatsCards() {
         queryKey: ['dashboard-stats'],
         queryFn: getDashboardStats
     })
+
     const [selected, setSelected] = useState<{ label: string; value: number; percentage: number } | null>(null)
 
-     const stats = [
-         { label: 'Open tickets', value: data?.open ?? 0, percentage: data?.percentOpen ?? 0 },
-         { label: 'New Tickets', value: data?.total ?? 0, percentage: 100 },
-         { label: 'In Process Tickets', value: data?.inProgress ?? 0, percentage: data?.percentInProgress ?? 0 },
-         { label: 'Closed Tickets', value: data?.closed ?? 0, percentage: data?.percentClosed ?? 0 },
-     ]
+    const stats = [
+        { label: 'Open tickets', value: data?.open ?? 0, percentage: data?.percentOpen ?? 0 },
+        { label: 'New Tickets', value: data?.total ?? 0, percentage: 100 },
+        { label: 'In Process Tickets', value: data?.inProgress ?? 0, percentage: data?.percentInProgress ?? 0 },
+        { label: 'Closed Tickets', value: data?.closed ?? 0, percentage: data?.percentClosed ?? 0 },
+    ]
 
     return (
         <>
@@ -29,21 +30,21 @@ export default function StatsCards() {
                         animate={{ opacity: 1, y: 0 }}
                         transition={{ duration: 0.3, delay: i * 0.08 }}
                         onClick={() => !isLoading && setSelected(s)}
-                        className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:shadow-md hover:border-[#00b67a]/30 transition-all">
-                        <p className="text-sm text-gray-500">{s.label}</p>
+                        className="bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-800 rounded-2xl p-6 cursor-pointer hover:shadow-md hover:border-[#0A86F5]/30 transition-all">
+                        <p className="text-sm text-gray-500 dark:text-gray-400">{s.label}</p>
                         {isLoading ? (
                             <div className="mt-3">
                                 <Spinner size="sm" />
                             </div>
                         ) : (
-                            <p className="text-[36px] font-semibold text-[#202020] mt-1 leading-none">{s.value}</p>
+                            <p className="text-[36px] font-semibold text-[#202020] dark:text-gray-100 mt-1 leading-none">{s.value}</p>
                         )}
                         <div className="flex items-center gap-1 mt-3">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M3 11L8 5L13 11" stroke="#00b67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M3 11L8 5L13 11" stroke="#0A86F5" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            <span className="text-xs font-semibold text-[#00b67a]">{isLoading ? '...' : `${s.percentage}%`}</span>
-                            <span className="text-xs text-gray-400">of total</span>
+                            <span className="text-xs font-semibold text-[#0A86F5]">{isLoading ? '...' : `${s.percentage}%`}</span>
+                            <span className="text-xs text-gray-400 dark:text-gray-500">of total</span>
                         </div>
                     </motion.div>
                 ))}

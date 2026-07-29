@@ -9,8 +9,8 @@ export default function ExportButton() {
             const data = await getLatestTickets()
             const headers = ['ID', 'Title', 'Status', 'Priority', 'Created By', 'Email', 'Created At']
             const rows = data.map((t: any) => [
-                t.id, t.title, t.status, t.priority, 
-                t.user_name ?? '', t.user_email ?? '', 
+                t.id, t.title, t.status, t.priority,
+                t.user_name ?? '', t.user_email ?? '',
                 new Date(t.created_at).toLocaleDateString()])
             const csv = [headers, ...rows].map((r) => r.join(',')).join('\n')
             const blob = new Blob([csv], { type: 'text/csv' })
@@ -29,7 +29,7 @@ export default function ExportButton() {
     return (
         <button
             onClick={handleExport}
-            className="flex items-center gap-2 border border-gray-200 rounded-[4px] px-[15px] h-10 text-sm text-gray-500 bg-white shadow-sm hover:bg-gray-50 transition-colors">
+            className="flex items-center gap-2 border border-[#0A86F5] rounded-[4px] px-[15px] h-10 text-sm text-[#0A86F5] bg-[rgba(10,134,245,0.07)] shadow-sm hover:bg-[rgba(10,134,245,0.12)] transition-colors">
             <Upload size={14} />
             Export
         </button>

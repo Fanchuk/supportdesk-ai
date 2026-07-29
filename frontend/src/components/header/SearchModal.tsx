@@ -15,12 +15,11 @@ export default function SearchModal({ open, onClose }: Props) {
     const navigate = useNavigate()
 
     const { data = [] } = useQuery({
-        queryKey: ['tickets-search'], // ✅ Виправлено одрук у ключі
+        queryKey: ['tickets-search'],
         queryFn: () => getTickets(),
         enabled: open
     })
 
-    // ✅ Виправлено фільтр (тепер шукає і по title, і по user_name)
     const filtered = q.length > 1
         ? (data as any[]).filter((t: any) => 
             t.title?.toLowerCase().includes(q.toLowerCase()) ||
@@ -52,7 +51,7 @@ export default function SearchModal({ open, onClose }: Props) {
     const statusStyle: Record<string, string> = {
         open: 'bg-[#fffbd1] text-[#ca8a04]',
         in_progress: 'bg-[#fff0ee] text-[#ef4444]',
-        closed: 'bg-[#e4faef] text-[#00b67a]',
+        closed: 'bg-[#edfff5] text-[#46E896]',
     }
 
     return (
@@ -66,7 +65,6 @@ export default function SearchModal({ open, onClose }: Props) {
                         className="bg-white dark:bg-gray-900 rounded-2xl shadow-2xl w-full max-w-lg overflow-hidden border border-gray-100 dark:border-gray-800"
                         onClick={(e) => e.stopPropagation()}
                     >
-                        {/* Search Input Bar */}
                         <div className="flex items-center gap-3 px-4 py-3 border-b border-gray-100 dark:border-gray-800">
                             <Search size={18} className="text-gray-400 flex-shrink-0" />
                             <input
@@ -84,7 +82,6 @@ export default function SearchModal({ open, onClose }: Props) {
                             <kbd className="text-xs text-gray-400 dark:text-gray-500 border border-gray-200 dark:border-gray-700 rounded px-1.5 py-0.5">Esc</kbd>
                         </div>
 
-                        {/* Search Results */}
                         {filtered.length > 0 ? (
                             <ul className="py-2 max-h-72 overflow-y-auto">
                                 {filtered.map((t: any) => (

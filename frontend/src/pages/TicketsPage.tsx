@@ -12,7 +12,7 @@ export default function TicketsPage() {
             <TicketsHeader sort={sort} onSortChange={setSort} />
             <TicketsTable sort={sort} onCreateClick={() => setShowModal(true)} />
 
-                <AddTicketModal open={showModal} onClose={() => setShowModal(false)}/>
+            <AddTicketModal open={showModal} onClose={() => setShowModal(false)}/>
         </div>
     )
 }

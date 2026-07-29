@@ -15,7 +15,7 @@ export default function DateRangePicker() {
         <div className="relative">
             <button
                 onClick={() => setOpen(!open)}
-                className="flex items-center gap-2 border border-gray-200 rounded-[4px] px-[15px] h-10 text-sm text-gray-500 bg-white shadow-sm hover:bg-gray-50 transition-colors">
+                className="flex items-center gap-2 border border-[#0A86F5] rounded-[4px] px-[15px] h-10 text-sm text-[#0A86F5] bg-[rgba(10,134,245,0.07)] shadow-sm hover:bg-[rgba(10,134,245,0.12)] transition-colors">
                 <Calendar size={14} />
                 {label}
             </button>

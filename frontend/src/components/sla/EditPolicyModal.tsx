@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { updateSlaPolicy } from '../services/sla'
+import { updateSlaPolicy } from '../../services/sla'
 import toast from 'react-hot-toast'
 
 export default function EditPolicyModal({ policy, onClose }: { policy: any | null; onClose: () => void }) {
@@ -67,14 +67,14 @@ export default function EditPolicyModal({ policy, onClose }: { policy: any | nul
                                     <input type={type}
                                         value={form[key as keyof typeof form]}
                                         onChange={(e) => setForm(p => ({ ...p, [key]: e.target.value }))}
-                                        className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all"
+                                        className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all"
                                     />
                                 </div>
                             ))}
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-sm font-medium text-gray-700">Priority</label>
                                 <select value={form.priority} onChange={(e) => setForm(p => ({ ...p, priority: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm outline-none focus:border-[#00b67a]"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm outline-none focus:border-[#0A86F5]"
                                 >
                                     <option value="high">High</option>
                                     <option value="medium">Medium</option>
@@ -86,7 +86,7 @@ export default function EditPolicyModal({ policy, onClose }: { policy: any | nul
                                     className="flex-1 h-10 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
                                 >Cancel</button>
                                 <button type="submit" disabled={isPending}
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors"
+                                    className="flex-1 h-10 bg-[#0A86F5] hover:bg-[#0875d4] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors"
                                 >{isPending ? 'Saving...' : 'Save Changes'}</button>
                             </div>
                         </form>

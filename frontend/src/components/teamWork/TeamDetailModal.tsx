@@ -25,8 +25,8 @@ export default function TeamDetailModal({ team, onClose }: Props) {
                         onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-start justify-between mb-6">
                             <div className="flex items-center gap-3">
-                                <div className="w-10 h-10 rounded-xl bg-[rgba(0,182,122,0.1)] flex items-center justify-center">
-                                    <Users size={18} className="text-[#00b67a]" />
+                                <div className="w-10 h-10 rounded-xl bg-[rgba(10,134,245,0.1)] flex items-center justify-center">
+                                    <Users size={18} className="text-[#0A86F5]" />
                                 </div>
                                 <div>
                                     <p className="text-xs text-gray-400">Team</p>
@@ -48,7 +48,7 @@ export default function TeamDetailModal({ team, onClose }: Props) {
                             ].map(({ icon: Icon, label, value }) => (
                                 <div key={label} className="flex items-center justify-between p-3 bg-gray-50 rounded-xl">
                                     <div className="flex items-center gap-2">
-                                        <Icon size={14} className="text-[#00b67a]" />
+                                        <Icon size={14} className="text-[#0A86F5]" />
                                         <span className="text-sm text-gray-500">{label}</span>
                                     </div>
                                     <span className="text-sm font-semibold text-[#202020]">{value}</span>

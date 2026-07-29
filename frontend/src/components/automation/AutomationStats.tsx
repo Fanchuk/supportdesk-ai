@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { useQuery } from "@tanstack/react-query"
 import { getAutomationStats } from "../../services/automation"
-import AutomationStatModal from "../../pages/AutomationStatModal"
+import AutomationStatModal from "./AutomationStatModal"
 import Spinner from "../ui/Spinner"
 
 export default function AutomationStats() {
@@ -27,14 +27,14 @@ export default function AutomationStats() {
                 <div 
                 key={s.label} 
                 onClick={() => setSelected(s)}
-                className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all">
+                className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all">
                     <p className="text-sm text-gray-500">{s.label}</p>
                     <p className="text-[36px] font-semibold text-[#202020] mt-1 leading-none">{s.display}</p>
                     <div className="flex items-center gap-1 mt-3">
                         <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                            <path d="M3 11L8 5L13 11" stroke="#00b67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                            <path d="M3 11L8 5L13 11" stroke="#F5A933" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
-                        <span className="text-xs font-semibold text-[#00b67a]">15%</span>
+                        <span className="text-xs font-semibold text-[#F5A933]">15%</span>
                         <span className="text-xs text-gray-400">{s.sub}</span>
                     </div>
                 </div>

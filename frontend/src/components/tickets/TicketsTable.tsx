@@ -13,7 +13,7 @@ interface Props {
 const statusStyle: Record<string, string> = {
     open: 'bg-[#fffbd1] text-[#ca8a04]',
     in_progress: 'bg-[#fff0ee] text-[#ef4444]',
-    closed: 'bg-[#e4faef] text-[#00b67a]',
+    closed: 'bg-[#edfff5] text-[#46E896]',
 }
 
 const statusLabel: Record<string, string> = {
@@ -35,10 +35,10 @@ export default function TicketsTable({ sort, onCreateClick }: Props) {
     })
 
     return (
-        <div className="bg-white rounded-[6px] overflow-hidden">
+        <div className="bg-white dark:bg-gray-900 rounded-[6px] overflow-hidden">
             <div className="flex items-center justify-between px-6 py-4">
-                <h2 className="text-[20px] font-semibold text-[#202020] tracking-[0.01em]">Latest Tickets</h2>
-                <button onClick={onCreateClick} className="flex items-center gap-2 border border-gray-200 rounded-[6px] px-4 h-9 text-sm font-medium text-[#202020] bg-white hover:bg-gray-50">
+                <h2 className="text-[20px] font-semibold text-[#202020] dark:text-gray-100 tracking-[0.01em]">Latest Tickets</h2>
+                <button onClick={onCreateClick} className="flex items-center gap-2 border border-[#0A86F5] rounded-[6px] px-4 h-9 text-sm font-medium text-[#0A86F5] bg-[rgba(10,134,245,0.07)] hover:bg-[rgba(10,134,245,0.12)] transition-colors">
                     Create Ticket
                     <Plus size={16} />
                 </button>
@@ -50,9 +50,9 @@ export default function TicketsTable({ sort, onCreateClick }: Props) {
                 ) : (
                     <table className="w-full min-w-[640px]">
                         <thead>
-                            <tr className="bg-[rgba(0,182,122,0.1)]">
+                            <tr className="bg-[rgba(10,134,245,0.07)]">
                                 {['Ticket ID', 'Name', 'Email', 'Subject', 'Created', 'Status'].map((h) => (
-                                    <th key={h} className="text-left text-sm font-medium text-[#00b67a] px-6 py-3">{h}</th>
+                                    <th key={h} className="text-left text-sm font-medium text-[#0A86F5] px-6 py-3">{h}</th>
                                 ))}
                             </tr>
                         </thead>
@@ -66,13 +66,13 @@ export default function TicketsTable({ sort, onCreateClick }: Props) {
                                     <tr
                                         key={t.id}
                                         onClick={() => navigate(`/tickets/${t.id}`)}
-                                        className="border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer"
+                                        className="border-b border-gray-50 dark:border-gray-800 hover:bg-gray-50 dark:hover:bg-gray-800/50 transition-colors cursor-pointer"
                                     >
-                                        <td className="px-6 py-4 text-sm text-[#626262]">#{t.id}</td>
-                                        <td className="px-6 py-4 text-sm text-[#626262]">{t.user_name ?? '—'}</td>
-                                        <td className="px-6 py-4 text-sm text-[#626262]">{t.user_email ?? '—'}</td>
-                                        <td className="px-6 py-4 text-sm text-[#626262]">{t.title}</td>
-                                        <td className="px-6 py-4 text-sm text-[#626262]">
+                                        <td className="px-6 py-4 text-sm text-[#626262] dark:text-gray-400">#{t.id}</td>
+                                        <td className="px-6 py-4 text-sm text-[#626262] dark:text-gray-400">{t.user_name ?? '—'}</td>
+                                        <td className="px-6 py-4 text-sm text-[#626262] dark:text-gray-400">{t.user_email ?? '—'}</td>
+                                        <td className="px-6 py-4 text-sm text-[#626262] dark:text-gray-400">{t.title}</td>
+                                        <td className="px-6 py-4 text-sm text-[#626262] dark:text-gray-400">
                                             {formatDistanceToNow(new Date(t.created_at), { addSuffix: true })}
                                         </td>
                                         <td className="px-6 py-4">

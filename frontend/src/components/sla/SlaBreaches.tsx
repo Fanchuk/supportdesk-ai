@@ -34,9 +34,9 @@ export default function SlaBreaches() {
                 <div className="overflow-x-auto">
                     <table className="w-full min-w-[600px]">
                         <thead>
-                            <tr className="bg-[rgba(0,182,122,0.1)]">
+                            <tr className="bg-[rgba(10,134,245,0.07)]">
                                 {['Ticket', 'Priority', 'Assignee', 'Breached', 'Overdue'].map((h) => (
-                                    <th key={h} className="text-left text-sm font-medium text-[#00b67a] px-6 py-3">{h}</th>
+                                    <th key={h} className="text-left text-sm font-medium text-[#0A86F5] px-6 py-3">{h}</th>
                                 ))}
                             </tr>
                         </thead>

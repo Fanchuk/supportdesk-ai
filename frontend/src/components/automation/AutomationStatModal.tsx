@@ -21,7 +21,7 @@ export default function AutomationStatModal({ stat, onClose }: Props) {
                     className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center px-4"
                     onClick={onClose}
                 >
-                    <motion.div initial={ {  opacity: 0, scale: 0.92, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 20 }} transition={{ type: 'spring', duration: 0.4 }}
+                    <motion.div initial={{ opacity: 0, scale: 0.92, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 20 }} transition={{ type: 'spring', duration: 0.4 }}
                         className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-2xl"
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -35,9 +35,9 @@ export default function AutomationStatModal({ stat, onClose }: Props) {
                             </button>
                         </div>
 
-                        <div className="flex items-center gap-2 mb-6 p-3 bg-[rgba(0,182,122,0.08)] rounded-xl">
-                            <TrendingUp size={16} className="text-[#00b67a]" />
-                            <span className="text-sm text-[#00b67a] font-medium">{stat.sub}</span>
+                        <div className="flex items-center gap-2 mb-6 p-3 rounded-xl" style={{ background: 'rgba(10,134,245,0.08)' }}>
+                            <TrendingUp size={16} className="text-[#0A86F5]" />
+                            <span className="text-sm text-[#0A86F5] font-medium">{stat.sub}</span>
                         </div>
                     </motion.div>
                 </motion.div>

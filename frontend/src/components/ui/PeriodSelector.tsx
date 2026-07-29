@@ -26,7 +26,7 @@ export default function PeriodSelector({ options, value, onChange }: Props) {
         <div ref={ref} className="relative">
             <button
                 onClick={() => setOpen(!open)}
-                className="flex items-center gap-1 text-sm text-gray-500 border border-gray-200 rounded-[4px] px-3 h-8 bg-white shadow-sm hover:bg-gray-50 transition-colors">
+                className="flex items-center gap-1 text-sm text-[#0A86F5] border border-[#0A86F5] rounded-[4px] px-3 h-8 bg-[rgba(10,134,245,0.07)] shadow-sm hover:bg-[rgba(10,134,245,0.12)] transition-colors">
                 {current?.label}
                 <ChevronDown size={14} className={`transition-transform ${open ? 'rotate-180' : ''}`} />
             </button>
@@ -46,7 +46,7 @@ export default function PeriodSelector({ options, value, onChange }: Props) {
                                     setOpen(false)
                                 }}
                                 className={`w-full text-left px-4 py-2 text-sm transition-colors hover:bg-gray-50
-                  ${o.value === value ? 'text-[#00b67a] font-medium' : 'text-gray-600'}`}>
+                                    ${o.value === value ? 'text-[#0A86F5] font-medium' : 'text-gray-600'}`}>
                                 {o.label}
                             </button>
                         ))}

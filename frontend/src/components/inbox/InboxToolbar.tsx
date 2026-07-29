@@ -1,4 +1,4 @@
-import { Trash2, RefreshCw, MoreHorizontal, Search, SlidersHorizontal, X } from 'lucide-react'
+import { Trash2, RefreshCw, MoreHorizontal, Search, X } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { deleteTicket } from '../../services/tickets'
 import toast from 'react-hot-toast'
@@ -32,7 +32,7 @@ export default function InboxToolbar({ search, onSearch, checked, onClearChecked
           <div className="flex items-center gap-3">
               <input
                   type="checkbox"
-                  className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 accent-[#00b67a]"
+                  className="w-4 h-4 rounded border-gray-300 dark:border-gray-600 dark:bg-gray-700 accent-[#8b8ffd]"
                   onChange={onToggleAll}
                   checked={checked.size === totalVisible && totalVisible > 0}
               />
@@ -64,7 +64,7 @@ export default function InboxToolbar({ search, onSearch, checked, onClearChecked
               )}
           </div>
 
-          <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-lg px-3 h-9 w-64 transition-colors focus-within:border-[#00b67a] dark:focus-within:border-[#00b67a]">
+          <div className="flex items-center gap-2 bg-gray-50 dark:bg-gray-800/50 border border-gray-200 dark:border-gray-800 rounded-lg px-3 h-9 w-64 transition-colors focus-within:border-[#8b8ffd] dark:focus-within:border-[#8b8ffd]">
               <Search size={14} className="text-gray-400 dark:text-gray-500 flex-shrink-0" />
               <input
                   value={search}

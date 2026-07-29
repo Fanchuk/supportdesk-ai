@@ -38,19 +38,17 @@ export default function InboxList({ search, folder, checked, onToggleCheck }: Pr
   })
 
   const toggleStar = (e: React.MouseEvent, id: number) => {
-  e.stopPropagation()
-  setStarred(prev => {
-    const next = new Set(prev)
-    
-    if (next.has(id)) {
-      next.delete(id)
-    } else {
-      next.add(id)
-    }
-    
-    return next
-  })
-}
+    e.stopPropagation()
+    setStarred(prev => {
+      const next = new Set(prev)
+      if (next.has(id)) {
+        next.delete(id)
+      } else {
+        next.add(id)
+      }
+      return next
+    })
+  }
 
   const filtered = (data as any[]).filter((t: any) => {
     const matchSearch = !search ||
@@ -94,14 +92,14 @@ export default function InboxList({ search, folder, checked, onToggleCheck }: Pr
               key={ticket.id}
               onClick={() => navigate(`/tickets/${ticket.id}`)}
               className={`grid grid-cols-[auto_auto_1fr_auto] items-center gap-4 px-4 py-[15px] border-b border-gray-50 hover:bg-gray-50 transition-colors cursor-pointer
-                ${checked.has(ticket.id) ? 'bg-[#fafbff]' : ''}`}
+                ${checked.has(ticket.id) ? 'bg-[rgba(138,143,253,0.05)]' : ''}`}
             >
               <input
                 type="checkbox"
                 checked={checked.has(ticket.id)}
                 onChange={e => { e.stopPropagation(); onToggleCheck(ticket.id) }}
                 onClick={e => e.stopPropagation()}
-                className="w-4 h-4 rounded border-gray-300 accent-[#00b67a]"
+                className="w-4 h-4 rounded border-gray-300 accent-[#8b8ffd]"
               />
               <button onClick={e => toggleStar(e, ticket.id)}>
                 <Star size={16} className={starred.has(ticket.id) ? 'fill-yellow-400 text-yellow-400' : 'text-gray-300'} />

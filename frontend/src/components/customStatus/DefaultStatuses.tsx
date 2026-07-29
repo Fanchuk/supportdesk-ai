@@ -1,7 +1,7 @@
 const defaults = [
     { label: 'Open', color: '#ca8a04', bg: 'bg-[#fffbd1]', text: 'text-[#ca8a04]', description: 'Ticket is new and waiting for response' },
     { label: 'In Progress', color: '#ef4444', bg: 'bg-[#fff0ee]', text: 'text-[#ef4444]', description: 'Ticket is being actively worked on' },
-    { label: 'Closed', color: '#00b67a', bg: 'bg-[#e4faef]', text: 'text-[#00b67a]', description: 'Ticket has been resolved and closed' },
+    { label: 'Closed', color: '#46E896', bg: 'bg-[#edfff5]', text: 'text-[#46E896]', description: 'Ticket has been resolved and closed' },
 ]
 
 export default function DefaultStatuses() {

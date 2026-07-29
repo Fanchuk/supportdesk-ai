@@ -18,7 +18,10 @@ interface Props {
 export default function InboxSidebar({ active, onChange }: Props) {
   return (
     <div className="w-[240px] flex-shrink-0 flex flex-col gap-3 pr-2">
-      <button className="w-full bg-[#00b67a] hover:bg-[#00a36c] text-white text-sm font-medium rounded-[3px] h-11 px-5 transition-colors">
+      <button 
+        className="w-full text-white text-sm font-medium rounded-[3px] h-11 px-5 transition-colors"
+        style={{ background: 'linear-gradient(90deg, #3a49bb 6%, #8b8ffd 100%)' }}
+      >
         Compose
       </button>
       <nav className="flex flex-col">
@@ -28,7 +31,7 @@ export default function InboxSidebar({ active, onChange }: Props) {
             onClick={() => onChange(label)}
             className={`flex items-center gap-3 px-[22px] py-[10px] rounded-sm text-base font-medium w-full text-left transition-colors
               ${active === label 
-                ? 'bg-[rgba(48,86,211,0.04)] dark:bg-[rgba(0,182,122,0.1)] text-[#00b67a] border-l-2 border-[#00b67a]' 
+                ? 'text-[#8b8ffd] border-l-2 border-[#8b8ffd] bg-[rgba(138,143,253,0.08)]' 
                 : 'text-gray-500 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800'}`}
           >
             <Icon size={16} />

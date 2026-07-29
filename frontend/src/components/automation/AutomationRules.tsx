@@ -4,12 +4,12 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { getAutomationRules, updateAutomationRule } from '../../services/automation'
 import { useNavigate } from 'react-router-dom'
 import Spinner from '../ui/Spinner'
-import CreateAutomationModal from '../../pages/CreateAutomationModal'
+import CreateAutomationModal from './CreateAutomationModal'
 
 const triggerIcons: Record<string, any> = {
     time_based: { Icon: Clock, iconBg: 'bg-[rgba(249,60,101,0.1)]', iconColor: 'text-[#f93c65]' },
     new_ticket: { Icon: Mail, iconBg: 'bg-[rgba(79,70,229,0.1)]', iconColor: 'text-[#4f46e5]' },
-    status_change: { Icon: Zap, iconBg: 'bg-[rgba(0,182,122,0.1)]', iconColor: 'text-[#00b67a]' },
+    status_change: { Icon: Zap, iconBg: 'bg-[rgba(71,222,222,0.1)]', iconColor: 'text-[#47DEDE]' },
 }
 
 const triggerLabel: Record<string, string> = {
@@ -29,7 +29,7 @@ function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) =>
     return (
         <button
             onClick={() => onChange(!value)}
-            className={`w-12 h-6 rounded-full relative transition-colors ${value ? 'bg-[#00b67a]' : 'bg-gray-200'}`}
+            className={`w-12 h-6 rounded-full relative transition-colors ${value ? 'bg-[#0A86F5]' : 'bg-gray-200'}`}
         >
             <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${value ? 'left-7' : 'left-1'}`} />
         </button>
@@ -75,7 +75,7 @@ export default function AutomationRules() {
                     </div>
                     <button
                         onClick={() => setCreateOpen(true)}
-                        className="flex items-center gap-2 bg-[#00b67a] text-white text-sm font-medium px-4 h-10 rounded-lg hover:bg-[#00a36c] transition-colors"
+                        className="flex items-center gap-2 bg-[#0A86F5] hover:bg-[#0875d4] text-white text-sm font-medium px-4 h-10 rounded-lg transition-colors"
                     >
                         <Plus size={16} />
                         Create Automation
@@ -96,7 +96,7 @@ export default function AutomationRules() {
                             <div
                                 key={r.id}
                                 onClick={() => navigate(`/automation/${r.id}`)}
-                                className="bg-white border border-gray-200 rounded-2xl px-6 py-8 flex items-start justify-between gap-4 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all"
+                                className="bg-white border border-gray-200 rounded-2xl px-6 py-8 flex items-start justify-between gap-4 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all"
                             >
                                 <div className="flex items-start gap-4 flex-1 min-w-0">
                                     <div className={`w-12 h-12 rounded-[8px] flex items-center justify-center flex-shrink-0 ${iconBg}`}>
@@ -111,7 +111,7 @@ export default function AutomationRules() {
                                             ))}
                                         </div>
                                         <p className="text-sm mt-1">
-                                            Executed <span className="text-[#00b67a] font-medium">{r.executedCount ?? 0}</span> times
+                                            Executed <span className="text-[#0A86F5] font-medium">{r.executedCount ?? 0}</span> times
                                         </p>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@ export default function AutomationRules() {
                                     />
                                     <button
                                         onClick={(e) => { e.stopPropagation(); navigate(`/automation/${r.id}`) }}
-                                        className="p-1 hover:text-[#00b67a] text-gray-400 transition-colors"
+                                        className="p-1 hover:text-[#0A86F5] text-gray-400 transition-colors"
                                     >
                                         <SlidersHorizontal size={16} />
                                     </button>

@@ -1,11 +1,12 @@
 export default function LoginBrand() {
     return (
-        <div className="hidden lg:flex lg:w-1/2 bg-[#00b67a] flex-col justify-between p-12 relative overflow-hidden">
+        <div className="hidden lg:flex lg:w-1/2 flex-col justify-between p-12 relative overflow-hidden"
+            style={{ background: 'linear-gradient(135deg, #b18cff 40%, #5ac8c8 100%)' }}>
             <div className="relative z-10">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
                         <svg width="20" height="20" viewBox="0 0 32 32" fill="none">
-                            <circle cx="16" cy="16" r="16" fill="#00b67a" />
+                            <circle cx="16" cy="16" r="16" fill="#0A86F5" />
                             <path d="M8 16l5 5 11-11" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </div>

@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import toast from 'react-hot-toast'
 
-const colorPresets = ['#ef4444', '#f59e0b', '#6366f1', '#6b7280', '#00b67a', '#3b82f6', '#ec4899', '#8b5cf6']
+const colorPresets = ['#ef4444', '#F5A933', '#6366f1', '#6b7280', '#47DEDE', '#0A86F5', '#ec4899', '#8b5cf6']
 
 interface Status { id: number; label: string; color: string; description: string; isActive: boolean }
 interface Props {
@@ -48,7 +48,7 @@ export default function EditStatusModal({ status, onClose, onEdit }: Props) {
                                 <label className="text-sm font-medium text-gray-700">Status Name</label>
                                 <input value={form.label}
                                     onChange={(e) => setForm(p => ({ ...p, label: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all"
                                 />
                             </div>
 
@@ -56,7 +56,7 @@ export default function EditStatusModal({ status, onClose, onEdit }: Props) {
                                 <label className="text-sm font-medium text-gray-700">Description</label>
                                 <input value={form.description}
                                     onChange={(e) => setForm(p => ({ ...p, description: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all"
                                 />
                             </div>
 
@@ -89,7 +89,7 @@ export default function EditStatusModal({ status, onClose, onEdit }: Props) {
                                     className="flex-1 h-10 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
                                 >Cancel</button>
                                 <button type="submit"
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] text-white font-medium rounded-lg text-sm transition-colors"
+                                    className="flex-1 h-10 bg-[#0A86F5] hover:bg-[#0875d4] text-white font-medium rounded-lg text-sm transition-colors"
                                 >Save Changes</button>
                             </div>
                         </form>

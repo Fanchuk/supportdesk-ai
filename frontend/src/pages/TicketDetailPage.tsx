@@ -9,7 +9,7 @@ import Spinner from '../components/ui/Spinner'
 const statusStyle: Record<string, string> = {
   open: 'bg-[#fffbd1] text-[#ca8a04] dark:bg-yellow-500/10 dark:text-yellow-500',
   in_progress: 'bg-[#fff0ee] text-[#ef4444] dark:bg-red-500/10 dark:text-red-500',
-  closed: 'bg-[#e4faef] text-[#00b67a] dark:bg-[#00b67a]/10 dark:text-[#00b67a]',
+  closed: 'bg-[#edfff5] text-[#46E896]',
 }
 
 const priorityStyle: Record<string, string> = {
@@ -65,8 +65,8 @@ export default function TicketDetailPage() {
               { icon: Building, label: 'Team', value: ticket.team_name ?? '—' },
             ].map(({ icon: Icon, label, value }) => (
               <div key={label} className="flex items-center gap-3 p-3 bg-gray-50 dark:bg-gray-800/50 rounded-xl border border-transparent dark:border-gray-800">
-                <div className="w-8 h-8 rounded-lg bg-[rgba(0,182,122,0.1)] flex items-center justify-center flex-shrink-0">
-                  <Icon size={14} className="text-[#00b67a]" />
+                <div className="w-8 h-8 rounded-lg bg-[rgba(10,134,245,0.1)] flex items-center justify-center flex-shrink-0">
+                  <Icon size={14} className="text-[#0A86F5]" />
                 </div>
                 <div>
                   <p className="text-xs text-gray-400 dark:text-gray-500">{label}</p>
@@ -88,7 +88,10 @@ export default function TicketDetailPage() {
                 const isStaff = m.author_role === 'agent' || m.author_role === 'admin'
                 return (
                   <div key={m.id} className={`flex gap-3 ${isStaff ? 'flex-row-reverse' : ''}`}>
-                    <div className="w-8 h-8 rounded-full bg-green-100 dark:bg-green-900/30 flex items-center justify-center text-green-600 dark:text-green-500 font-semibold text-xs flex-shrink-0">
+                    <div 
+                      className="w-8 h-8 rounded-full flex items-center justify-center text-white font-semibold text-xs flex-shrink-0"
+                      style={{ background: 'linear-gradient(135deg, #b18cff 40%, #5ac8c8 100%)' }}
+                    >
                       {m.author_name?.slice(0, 2).toUpperCase() || 'U'}
                     </div>
                     
@@ -97,9 +100,10 @@ export default function TicketDetailPage() {
                       <div 
                         className={`px-4 py-3 rounded-2xl text-sm ${
                           isStaff 
-                            ? 'bg-[#00b67a] text-white rounded-tr-sm' 
+                            ? 'text-white rounded-tr-sm' 
                             : 'bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded-tl-sm'
                         }`}
+                        style={isStaff ? { background: 'linear-gradient(135deg, #b18cff 40%, #5ac8c8 100%)' } : {}}
                       >
                         <p className="whitespace-pre-wrap">{m.body}</p>
                       </div>

@@ -1,49 +1,13 @@
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Plus, Copy, SlidersHorizontal, Trash2, Search, Check } from 'lucide-react'
-import toast from 'react-hot-toast'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
+import { getSavedAnswers, createSavedAnswer, updateSavedAnswer, deleteSavedAnswer } from '../../services/savedAnswers'
+import Spinner from '../ui/Spinner'
 import CreateAnswerModal from './CreateAnswerModal'
 import EditAnswerModal from './EditAnswerModal'
+import toast from 'react-hot-toast'
 
 const categories = ['All', 'Greeting', 'Technical', 'Billing', 'Closing', 'Escalation']
-
-const initialAnswers = [
-    {
-        id: 1,
-        title: 'Welcome Greeting',
-        category: 'Greeting',
-        body: 'Hello! Thank you for contacting our support team. My name is [Agent Name] and I will be happy to assist you today. Could you please provide more details about your issue?',
-    },
-    {
-        id: 2,
-        title: 'Password Reset Instructions',
-        category: 'Technical',
-        body: 'To reset your password, please follow these steps:\n1. Go to the login page\n2. Click "Forgot Password"\n3. Enter your email address\n4. Check your inbox for the reset link\n5. Follow the instructions in the email.',
-    },
-    {
-        id: 3,
-        title: 'Billing Inquiry Response',
-        category: 'Billing',
-        body: 'Thank you for reaching out about your billing concern. I understand how important this is to you. Could you please provide your account number or the email associated with your account so I can look into this right away?',
-    },
-    {
-        id: 4,
-        title: 'Issue Escalation Notice',
-        category: 'Escalation',
-        body: 'I understand your frustration and I want to make sure this gets resolved as quickly as possible. I am escalating your ticket to our senior support team who specializes in this type of issue. You can expect a response within 2-4 hours.',
-    },
-    {
-        id: 5,
-        title: 'Closing Message',
-        category: 'Closing',
-        body: 'I am glad we could resolve your issue today! If you have any further questions or need assistance in the future, please don\'t hesitate to reach out. Have a wonderful day!',
-    },
-    {
-        id: 6,
-        title: 'Refund Processing',
-        category: 'Billing',
-        body: 'I have initiated the refund process for your account. Please note that refunds typically take 5-7 business days to appear on your statement depending on your bank. You will receive a confirmation email shortly.',
-    },
-]
 
 function CopyButton({ text }: { text: string }) {
     const [copied, setCopied] = useState(false)
@@ -57,47 +21,68 @@ function CopyButton({ text }: { text: string }) {
     }
 
     return (
-        <button
-            onClick={handleCopy}
-            className="p-1.5 text-gray-400 hover:text-[#00b67a] transition-colors rounded-lg hover:bg-[rgba(0,182,122,0.08)]"
-        >
-            {copied ? <Check size={15} className="text-[#00b67a]" /> : <Copy size={15} />}
+        <button onClick={handleCopy} className="p-1.5 text-gray-400 hover:text-[#0A86F5] transition-colors rounded-lg hover:bg-[rgba(10,134,245,0.08)]">
+            {copied ? <Check size={15} className="text-[#0A86F5]" /> : <Copy size={15} />}
         </button>
     )
 }
 
 export default function SavedAnswersList() {
-    const [answers, setAnswers] = useState(initialAnswers)
+    const qc = useQueryClient()
     const [activeCategory, setActiveCategory] = useState('All')
     const [search, setSearch] = useState('')
     const [createOpen, setCreateOpen] = useState(false)
-    const [editAnswer, setEditAnswer] = useState<typeof initialAnswers[0] | null>(null)
+    const [editAnswer, setEditAnswer] = useState<any | null>(null)
 
-    const filtered = answers.filter((a) => {
+    const { data = [], isLoading } = useQuery({
+        queryKey: ['saved-answers'],
+        queryFn: getSavedAnswers,
+    })
+
+    const { mutate: create } = useMutation({
+        mutationFn: (data: { title: string; category: string; body: string }) => createSavedAnswer(data),
+        onSuccess: () => {
+            toast.success('Answer created!')
+            qc.invalidateQueries({ queryKey: ['saved-answers'] })
+        },
+        onError: () => toast.error('Failed to create'),
+    })
+
+    const { mutate: edit } = useMutation({
+        mutationFn: (data: { title: string; category: string; body: string }) => updateSavedAnswer(editAnswer?.id, data),
+        onSuccess: () => {
+            toast.success('Answer updated!')
+            qc.invalidateQueries({ queryKey: ['saved-answers'] })
+            setEditAnswer(null)
+        },
+        onError: () => toast.error('Failed to update'),
+    })
+
+    const { mutate: remove } = useMutation({
+        mutationFn: (id: number) => deleteSavedAnswer(id),
+        onSuccess: () => {
+            toast.success('Answer deleted')
+            qc.invalidateQueries({ queryKey: ['saved-answers'] })
+        },
+        onError: () => toast.error('Failed to delete'),
+    })
+
+    const filtered = (data as any[]).filter((a) => {
         const matchCategory = activeCategory === 'All' || a.category === activeCategory
-        const matchSearch = a.title.toLowerCase().includes(search.toLowerCase()) ||
-            a.body.toLowerCase().includes(search.toLowerCase())
+        const matchSearch = a.title.toLowerCase().includes(search.toLowerCase()) || a.body.toLowerCase().includes(search.toLowerCase())
         return matchCategory && matchSearch
     })
 
-    const handleCreate = (data: { title: string; category: string; body: string }) => {
-        setAnswers(p => [...p, { id: Date.now(), ...data }])
-    }
-
-    const handleEdit = (data: { title: string; category: string; body: string }) => {
-        setAnswers(p => p.map(a => a.id === editAnswer?.id ? { ...a, ...data } : a))
-        setEditAnswer(null)
-    }
-
-    const handleDelete = (id: number) => {
-        setAnswers(p => p.filter(a => a.id !== id))
-        toast.success('Answer deleted')
-    }
+    if (isLoading)
+        return (
+            <div className="flex justify-center py-8">
+                <Spinner size="lg" />
+            </div>
+        )
 
     return (
         <>
             <div>
-                {/* Toolbar */}
                 <div className="flex items-center justify-between flex-wrap gap-3 mb-4">
                     <div className="flex items-center gap-2 flex-wrap">
                         {categories.map((c) => (
@@ -105,11 +90,8 @@ export default function SavedAnswersList() {
                                 key={c}
                                 onClick={() => setActiveCategory(c)}
                                 className={`px-4 h-9 rounded-lg text-sm font-medium transition-colors ${
-                                    activeCategory === c
-                                        ? 'bg-[#00b67a] text-white'
-                                        : 'bg-white border border-gray-200 text-gray-600 hover:border-[#00b67a] hover:text-[#00b67a]'
-                                }`}
-                            >
+                                    activeCategory === c ? 'bg-[#0A86F5] text-white' : 'bg-white border border-gray-200 text-gray-600 hover:border-[#0A86F5] hover:text-[#0A86F5]'
+                                }`}>
                                 {c}
                             </button>
                         ))}
@@ -121,19 +103,17 @@ export default function SavedAnswersList() {
                                 value={search}
                                 onChange={(e) => setSearch(e.target.value)}
                                 placeholder="Search answers..."
-                                className="pl-8 pr-4 h-9 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] transition-colors w-52"
+                                className="pl-8 pr-4 h-9 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] transition-colors w-52"
                             />
                         </div>
                         <button
                             onClick={() => setCreateOpen(true)}
-                            className="flex items-center gap-2 bg-[#00b67a] text-white text-sm font-medium px-4 h-9 rounded-lg hover:bg-[#00a36c] transition-colors"
-                        >
+                            className="flex items-center gap-2 bg-[#0A86F5] hover:bg-[#0875d4] text-white text-sm font-medium px-4 h-9 rounded-lg transition-colors">
                             <Plus size={16} /> New Answer
                         </button>
                     </div>
                 </div>
 
-                {/* List */}
                 <div className="flex flex-col gap-4">
                     {filtered.length === 0 ? (
                         <div className="bg-white border border-dashed border-gray-200 rounded-2xl px-6 py-16 text-center">
@@ -144,30 +124,31 @@ export default function SavedAnswersList() {
                             <div
                                 key={a.id}
                                 onClick={() => setEditAnswer(a)}
-                                className="bg-white border border-gray-200 rounded-2xl px-6 py-5 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all"
-                            >
+                                className="bg-white border border-gray-200 rounded-2xl px-6 py-5 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all">
                                 <div className="flex items-start justify-between gap-4">
                                     <div className="flex-1 min-w-0">
                                         <div className="flex items-center gap-2 mb-1 flex-wrap">
                                             <p className="text-base font-medium text-[#202020]">{a.title}</p>
-                                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[rgba(0,182,122,0.08)] text-[#00b67a]">
-                                                {a.category}
-                                            </span>
+                                            <span className="text-xs font-medium px-2 py-0.5 rounded-full bg-[rgba(10,134,245,0.08)] text-[#0A86F5]">{a.category}</span>
                                         </div>
                                         <p className="text-sm text-gray-500 line-clamp-2 whitespace-pre-wrap">{a.body}</p>
                                     </div>
                                     <div className="flex items-center gap-1 flex-shrink-0" onClick={(e) => e.stopPropagation()}>
                                         <CopyButton text={a.body} />
                                         <button
-                                            onClick={(e) => { e.stopPropagation(); setEditAnswer(a) }}
-                                            className="p-1.5 text-gray-400 hover:text-[#00b67a] transition-colors rounded-lg hover:bg-[rgba(0,182,122,0.08)]"
-                                        >
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                setEditAnswer(a)
+                                            }}
+                                            className="p-1.5 text-gray-400 hover:text-[#0A86F5] transition-colors rounded-lg hover:bg-[rgba(10,134,245,0.08)]">
                                             <SlidersHorizontal size={15} />
                                         </button>
                                         <button
-                                            onClick={(e) => { e.stopPropagation(); handleDelete(a.id) }}
-                                            className="p-1.5 text-gray-400 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50"
-                                        >
+                                            onClick={(e) => {
+                                                e.stopPropagation()
+                                                remove(a.id)
+                                            }}
+                                            className="p-1.5 text-gray-400 hover:text-red-500 transition-colors rounded-lg hover:bg-red-50">
                                             <Trash2 size={15} />
                                         </button>
                                     </div>
@@ -178,18 +159,8 @@ export default function SavedAnswersList() {
                 </div>
             </div>
 
-            <CreateAnswerModal
-                open={createOpen}
-                onClose={() => setCreateOpen(false)}
-                onCreate={handleCreate}
-                categories={categories.filter(c => c !== 'All')}
-            />
-            <EditAnswerModal
-                answer={editAnswer}
-                onClose={() => setEditAnswer(null)}
-                onEdit={handleEdit}
-                categories={categories.filter(c => c !== 'All')}
-            />
+            <CreateAnswerModal open={createOpen} onClose={() => setCreateOpen(false)} onCreate={create} categories={categories.filter((c) => c !== 'All')} />
+            <EditAnswerModal answer={editAnswer} onClose={() => setEditAnswer(null)} onEdit={edit} categories={categories.filter((c) => c !== 'All')} />
         </>
     )
 }

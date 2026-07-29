@@ -44,7 +44,7 @@ export default function LoginForm() {
     return (
         <div className="w-full max-w-[420px]">
             <div className="flex items-center gap-2 mb-10 lg:hidden">
-                <div className="w-8 h-8 rounded-full bg-[#00b67a] flex items-center justify-center">
+                <div className="w-8 h-8 rounded-full bg-[#0A86F5] flex items-center justify-center">
                     <svg width="14" height="14" viewBox="0 0 32 32" fill="none">
                         <path d="M8 16l5 5 11-11" stroke="white" strokeWidth="3" strokeLinecap="round" strokeLinejoin="round" />
                     </svg>
@@ -65,14 +65,14 @@ export default function LoginForm() {
                         placeholder="you@company.com"
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
-                        className="h-11 px-4 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all"
+                        className="h-11 px-4 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all"
                     />
                 </div>
 
                 <div className="flex flex-col gap-1.5">
                     <div className="flex items-center justify-between">
                         <label className="text-sm font-medium text-gray-700">Password</label>
-                        <button type="button" className="text-sm text-[#00b67a] hover:underline">Forgot password?</button>
+                        <button type="button" className="text-sm text-[#0A86F5] hover:underline">Forgot password?</button>
                     </div>
                     <div className="relative">
                         <input
@@ -80,7 +80,7 @@ export default function LoginForm() {
                             placeholder="••••••••"
                             value={password}
                             onChange={(e) => setPassword(e.target.value)}
-                            className="w-full h-11 px-4 pr-11 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all"
+                            className="w-full h-11 px-4 pr-11 rounded-lg border border-gray-200 text-sm text-gray-900 placeholder:text-gray-400 outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all"
                         />
                         <button
                             type="button"
@@ -93,14 +93,14 @@ export default function LoginForm() {
                 </div>
 
                 <div className="flex items-center gap-2 mt-1">
-                    <input type="checkbox" id="remember" className="w-4 h-4 rounded border-gray-300 accent-[#00b67a]" />
+                    <input type="checkbox" id="remember" className="w-4 h-4 rounded border-gray-300 accent-[#0A86F5]" />
                     <label htmlFor="remember" className="text-sm text-gray-600">Remember me for 30 days</label>
                 </div>
 
                 <button
                     type="submit"
                     disabled={isPending}
-                    className="mt-2 h-11 w-full bg-[#00b67a] hover:bg-[#00a36c] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+                    className="mt-2 h-11 w-full bg-[#0A86F5] hover:bg-[#0875d4] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
                 >
                     {isPending ? <Spinner size="sm" /> : 'Sign in'}
                 </button>
@@ -132,7 +132,7 @@ export default function LoginForm() {
 
             <p className="mt-8 text-center text-sm text-gray-500">
                 Don't have an account?{' '}
-                <button className="text-[#00b67a] font-medium hover:underline">Sign up for free</button>
+                <button className="text-[#0A86F5] font-medium hover:underline">Sign up for free</button>
             </p>
 
             <div className="mt-10 flex items-center justify-center gap-6">

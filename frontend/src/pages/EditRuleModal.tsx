@@ -85,7 +85,7 @@ export default function EditRuleModal({ rule, onClose }: Props) {
                                     value={form.name}
                                     onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                                     placeholder="e.g. Billing Issue → Finance Team"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -97,7 +97,7 @@ export default function EditRuleModal({ rule, onClose }: Props) {
                                     value={form.keywords}
                                     onChange={(e) => setForm((p) => ({ ...p, keywords: e.target.value }))}
                                     placeholder="billing, invoice, payment"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -108,7 +108,7 @@ export default function EditRuleModal({ rule, onClose }: Props) {
                                 <select
                                     value={form.teamId}
                                     onChange={(e) => setForm((p) => ({ ...p, teamId: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a]"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5]"
                                 >
                                     <option value="">Select team...</option>
                                     {(teams as any[]).map((t: any) => (
@@ -130,7 +130,7 @@ export default function EditRuleModal({ rule, onClose }: Props) {
                                 <button
                                     type="submit"
                                     disabled={isPending}
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
+                                    className="flex-1 h-10 bg-[#0A86F5] hover:bg-[#0875d4] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2"
                                 >
                                     {isPending ? 'Saving...' : 'Save Changes'}
                                 </button>

@@ -44,14 +44,14 @@ export default function CreateAnswerModal({ open, onClose, onCreate, categories 
                                 <input value={form.title}
                                     onChange={(e) => setForm(p => ({ ...p, title: e.target.value }))}
                                     placeholder="e.g. Welcome Greeting"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
                             <div className="flex flex-col gap-1.5">
                                 <label className="text-sm font-medium text-gray-700">Category</label>
                                 <select value={form.category}
                                     onChange={(e) => setForm(p => ({ ...p, category: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm outline-none focus:border-[#00b67a] transition-all"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 bg-white text-sm outline-none focus:border-[#0A86F5] transition-all"
                                 >
                                     <option value="">Select category...</option>
                                     {categories.map(c => <option key={c} value={c}>{c}</option>)}
@@ -63,7 +63,7 @@ export default function CreateAnswerModal({ open, onClose, onCreate, categories 
                                     onChange={(e) => setForm(p => ({ ...p, body: e.target.value }))}
                                     placeholder="Type your reusable answer here..."
                                     rows={5}
-                                    className="px-3 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400 resize-none"
+                                    className="px-3 py-2 rounded-lg border border-gray-200 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400 resize-none"
                                 />
                             </div>
                             <div className="flex gap-3 mt-2">
@@ -71,7 +71,7 @@ export default function CreateAnswerModal({ open, onClose, onCreate, categories 
                                     className="flex-1 h-10 border border-gray-200 rounded-lg text-sm text-gray-600 hover:bg-gray-50 transition-colors"
                                 >Cancel</button>
                                 <button type="submit"
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] text-white font-medium rounded-lg text-sm transition-colors"
+                                    className="flex-1 h-10 bg-[#0A86F5] hover:bg-[#0875d4] text-white font-medium rounded-lg text-sm transition-colors"
                                 >Create Answer</button>
                             </div>
                         </form>

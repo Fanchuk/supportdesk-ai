@@ -1,4 +1,4 @@
-import ExportButton from '../ui/ExportButton'
+import ExportButton from "../dashboard/ExportButton"
 
 export default function SavedAnswersHeader() {
     return (

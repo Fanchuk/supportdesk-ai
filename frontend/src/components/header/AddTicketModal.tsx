@@ -63,7 +63,7 @@ export default function AddTicketModal({ open, onClose }: Props) {
                                     value={form.title}
                                     onChange={(e) => setForm((p) => ({ ...p, title: e.target.value }))}
                                     placeholder="Describe the issue briefly"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -74,7 +74,7 @@ export default function AddTicketModal({ open, onClose }: Props) {
                                     onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                                     placeholder="Provide more details..."
                                     rows={4}
-                                    className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all resize-none placeholder:text-gray-400"
+                                    className="px-3 py-2 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all resize-none placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -83,7 +83,7 @@ export default function AddTicketModal({ open, onClose }: Props) {
                                 <select
                                     value={form.priority}
                                     onChange={(e) => setForm((p) => ({ ...p, priority: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a]">
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5]">
                                     <option value="low">Low</option>
                                     <option value="medium">Medium</option>
                                     <option value="high">High</option>
@@ -100,7 +100,8 @@ export default function AddTicketModal({ open, onClose }: Props) {
                                 <button
                                     type="submit"
                                     disabled={isPending}
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    className="flex-1 h-10 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2 disabled:opacity-60"
+                                    style={{ background: 'linear-gradient(135deg, #b18cff 40%, #5ac8c8 100%)' }}>
                                     {isPending ? 'Creating...' : 'Create Ticket'}
                                 </button>
                             </div>

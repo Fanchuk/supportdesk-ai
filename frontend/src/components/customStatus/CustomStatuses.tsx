@@ -10,7 +10,7 @@ import toast from 'react-hot-toast'
 function Toggle({ value, onChange }: { value: boolean; onChange: (v: boolean) => void }) {
     return (
         <button onClick={() => onChange(!value)}
-            className={`w-12 h-6 rounded-full relative transition-colors ${value ? 'bg-[#00b67a]' : 'bg-gray-200'}`}
+            className={`w-12 h-6 rounded-full relative transition-colors ${value ? 'bg-[#0A86F5]' : 'bg-gray-200'}`}
         >
             <span className={`absolute top-1 w-4 h-4 rounded-full bg-white transition-all ${value ? 'left-7' : 'left-1'}`} />
         </button>
@@ -83,7 +83,7 @@ export default function CustomStatuses() {
                         <p className="text-base text-[#3a4452]">Define additional statuses for your workflow</p>
                     </div>
                     <button onClick={() => setCreateOpen(true)}
-                        className="flex items-center gap-2 bg-[#00b67a] text-white text-sm font-medium px-4 h-10 rounded-lg hover:bg-[#00a36c] transition-colors"
+                        className="flex items-center gap-2 bg-[#0A86F5] hover:bg-[#0875d4] text-white text-sm font-medium px-4 h-10 rounded-lg transition-colors"
                     >
                         <Plus size={16} /> Create Status
                     </button>
@@ -93,7 +93,7 @@ export default function CustomStatuses() {
                     {(data as any[]).map((s) => (
                         <div key={s.id}
                             onClick={() => setEditStatus(s)}
-                            className="bg-white border border-gray-200 rounded-2xl px-6 py-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all"
+                            className="bg-white border border-gray-200 rounded-2xl px-6 py-5 flex items-center justify-between gap-4 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all"
                         >
                             <div className="flex items-center gap-4 flex-1 min-w-0">
                                 <div className="w-12 h-12 rounded-[8px] flex items-center justify-center flex-shrink-0"
@@ -116,7 +116,7 @@ export default function CustomStatuses() {
                                     onChange={(v) => toggle({ id: s.id, isActive: v })}
                                 />
                                 <button onClick={(e) => { e.stopPropagation(); setEditStatus(s) }}
-                                    className="p-1 text-gray-400 hover:text-[#00b67a] transition-colors"
+                                    className="p-1 text-gray-400 hover:text-[#0A86F5] transition-colors"
                                 >
                                     <SlidersHorizontal size={16} />
                                 </button>

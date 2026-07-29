@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X } from 'lucide-react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
-import { createAutomationRule } from '../services/automation'
+import { createAutomationRule } from '../../services/automation'
 import toast from 'react-hot-toast'
 
 interface Props {
@@ -32,7 +32,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
         onError: () => toast.error('Failed to create automation'),
     })
 
-     const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         if (!form.name || !form.trigger || !form.action) return toast.error('Fill in all required fields')
         mutate()
@@ -61,7 +61,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                     value={form.name}
                                     onChange={(e) => setForm((p) => ({ ...p, name: e.target.value }))}
                                     placeholder="e.g. Auto-Close Resolved Tickets"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -71,7 +71,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                     value={form.description}
                                     onChange={(e) => setForm((p) => ({ ...p, description: e.target.value }))}
                                     placeholder="Optional description"
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                 />
                             </div>
 
@@ -80,7 +80,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                 <select
                                     value={form.trigger}
                                     onChange={(e) => setForm((p) => ({ ...p, trigger: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a]">
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5]">
                                     <option value="">Select trigger...</option>
                                     <option value="new_ticket">New Ticket</option>
                                     <option value="time_based">Time Based</option>
@@ -93,7 +93,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                 <select
                                     value={form.action}
                                     onChange={(e) => setForm((p) => ({ ...p, action: e.target.value }))}
-                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a]">
+                                    className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5]">
                                     <option value="">Select action...</option>
                                     <option value="close_ticket">Close Ticket</option>
                                     <option value="send_email">Send Email</option>
@@ -110,7 +110,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                         value={form.conditionHours}
                                         onChange={(e) => setForm((p) => ({ ...p, conditionHours: e.target.value }))}
                                         placeholder="e.g. 4"
-                                        className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#00b67a] focus:ring-2 focus:ring-[#00b67a]/20 transition-all placeholder:text-gray-400"
+                                        className="h-10 px-3 rounded-lg border border-gray-200 dark:border-gray-700 bg-transparent text-gray-900 dark:text-gray-100 text-sm outline-none focus:border-[#0A86F5] focus:ring-2 focus:ring-[#0A86F5]/20 transition-all placeholder:text-gray-400"
                                     />
                                 </div>
                             )}
@@ -125,7 +125,7 @@ export default function CreateAutomationModal({ open, onClose }: Props) {
                                 <button
                                     type="submit"
                                     disabled={isPending}
-                                    className="flex-1 h-10 bg-[#00b67a] hover:bg-[#00a36c] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
+                                    className="flex-1 h-10 bg-[#0A86F5] hover:bg-[#0875d4] disabled:opacity-60 text-white font-medium rounded-lg text-sm transition-colors flex items-center justify-center gap-2">
                                     {isPending ? 'Creating...' : 'Create'}
                                 </button>
                             </div>

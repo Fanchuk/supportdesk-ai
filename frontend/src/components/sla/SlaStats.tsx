@@ -25,9 +25,9 @@ function StatModal({ stat, onClose }: { stat: any | null; onClose: () => void })
                             </div>
                             <button onClick={onClose} className="text-gray-400 hover:text-gray-600 p-1"><X size={20} /></button>
                         </div>
-                        <div className="flex items-center gap-2 p-3 bg-[rgba(0,182,122,0.08)] rounded-xl">
-                            <TrendingUp size={16} className="text-[#00b67a]" />
-                            <span className="text-sm text-[#00b67a] font-medium">{stat.sub}</span>
+                        <div className="flex items-center gap-2 p-3 rounded-xl" style={{ background: 'rgba(71,222,222,0.1)' }}>
+                            <TrendingUp size={16} className="text-[#47DEDE]" />
+                            <span className="text-sm text-[#47DEDE] font-medium">{stat.sub}</span>
                         </div>
                     </motion.div>
                 </motion.div>
@@ -57,15 +57,15 @@ export default function SlaStats() {
                     <div 
                     key={s.label} 
                     onClick={() => setSelected(s)}
-                    className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:border-[#00b67a] hover:shadow-sm transition-all"
+                    className="bg-white border border-gray-200 rounded-2xl p-6 cursor-pointer hover:border-[#0A86F5] hover:shadow-sm transition-all"
                     >
                         <p className="text-sm text-gray-500">{s.label}</p>
                         <p className="text-[36px] font-semibold text-[#202020] mt-1 leading-none">{s.display}</p>
                         <div className="flex items-center gap-1 mt-3">
                             <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                                <path d="M3 11L8 5L13 11" stroke="#00b67a" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
+                                <path d="M3 11L8 5L13 11" stroke="#F5A933" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
                             </svg>
-                            <span className="text-xs font-semibold text-[#00b67a]">15%</span>
+                            <span className="text-xs font-semibold text-[#F5A933]">15%</span>
                             <span className="text-xs text-gray-400">{s.sub}</span>
                         </div>
                     </div>

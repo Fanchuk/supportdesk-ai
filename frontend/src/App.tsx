@@ -14,6 +14,11 @@ import SlaManagementPage from './pages/SlaManagementPage'
 import CustomTicketStatusPage from './pages/CustomTicketStatusPage'
 import SavedAnswersPage from './pages/SavedAnswersPage'
 import Layout from './components/layout/Layout'
+import TeamWorkPage from './pages/TeamWorkPage'
+import JointEditingPage from './pages/JointEditingPage'
+import EmailIntegrationPage from './pages/EmailIntegrationPage'
+import ReportStatisticsPage from './pages/ReportStatisticsPage'
+import SettingsPage from './pages/SettingsPage'
 
 function App() {
   return (
@@ -33,6 +38,11 @@ function App() {
         <Route path='inbox' element={<InboxPage />} />
         <Route path='custom-status' element={<CustomTicketStatusPage />} />
         <Route path='saved-answers' element={<SavedAnswersPage />} />
+        <Route path='team-work' element={<TeamWorkPage />} />
+        <Route path='joint' element={<JointEditingPage />} />
+        <Route path='email' element={<EmailIntegrationPage />} />
+        <Route path='reports' element={<ReportStatisticsPage />} />
+        <Route path='settings' element={<SettingsPage />} />
       </Route>
       <Route path='*' element={<NotFoundPage />} />
     </Routes>

@@ -2,7 +2,6 @@ import { useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, TrendingUp } from 'lucide-react'
 
-
 interface Props {
     stat: { label: string; value: number; percentage: number } | null
     onClose: () => void
@@ -21,7 +20,7 @@ export default function StatsModal({ stat, onClose }: Props) {
                 <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
                     className="fixed inset-0 bg-black/30 backdrop-blur-sm z-50 flex items-center justify-center px-4"
                     onClick={onClose}>
-                    <motion.div initial={ { opacity: 0, scale: 0.92, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 20 }} transition={{ type: 'spring', duration: 0.4 }}
+                    <motion.div initial={{ opacity: 0, scale: 0.92, y: 20 }} animate={{ opacity: 1, scale: 1, y: 0 }} exit={{ opacity: 0, scale: 0.92, y: 20 }} transition={{ type: 'spring', duration: 0.4 }}
                         className="bg-white rounded-2xl p-8 w-full max-w-sm shadow-2xl"
                         onClick={(e) => e.stopPropagation()}>
                         <div className="flex items-start justify-between mb-6">
@@ -34,9 +33,9 @@ export default function StatsModal({ stat, onClose }: Props) {
                             </button>
                         </div>
 
-                        <div className="flex items-center gap-2 mb-6 p-3 bg-[rgba(0,182,122,0.08)] rounded-xl">
-                            <TrendingUp size={16} className="text-[#00b67a]" />
-                            <span className="text-sm text-[#00b67a] font-medium">{stat.percentage}% of total tickets</span>
+                        <div className="flex items-center gap-2 mb-6 p-3 rounded-xl" style={{ background: 'rgba(10,134,245,0.08)' }}>
+                            <TrendingUp size={16} className="text-[#0A86F5]" />
+                            <span className="text-sm text-[#0A86F5] font-medium">{stat.percentage}% of total tickets</span>
                         </div>
 
                         <div className="w-full bg-gray-100 rounded-full h-2 mb-2">
@@ -44,7 +43,8 @@ export default function StatsModal({ stat, onClose }: Props) {
                                 initial={{ width: 0 }}
                                 animate={{ width: `${Math.min(stat.percentage, 100)}%` }}
                                 transition={{ duration: 0.8, ease: 'easeOut' }}
-                                className="h-2 bg-[#00b67a] rounded-full"
+                                className="h-2 rounded-full"
+                                style={{ background: 'linear-gradient(135deg, #b18cff 40%, #5ac8c8 100%)' }}
                             />
                         </div>
                         <p className="text-xs text-gray-400 text-right">{stat.percentage}%</p>

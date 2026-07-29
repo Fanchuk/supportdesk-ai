@@ -8,9 +8,9 @@ export default function NotFoundPage() {
         <div className="min-h-screen bg-gray-50 flex items-center justify-center px-6">
             <div className="text-center max-w-md">
                 <div className="relative inline-flex items-center justify-center w-40 h-40 mb-8">
-                    <div className="absolute inset-0 rounded-full bg-[rgba(0,182,122,0.08)] animate-pulse" />
-                    <div className="absolute inset-4 rounded-full bg-[rgba(0,182,122,0.12)]" />
-                    <span className="relative text-6xl font-black text-[#00b67a] tracking-tighter">404</span>
+                    <div className="absolute inset-0 rounded-full bg-[rgba(10,134,245,0.08)] animate-pulse" />
+                    <div className="absolute inset-4 rounded-full bg-[rgba(10,134,245,0.12)]" />
+                    <span className="relative text-6xl font-black text-[#0A86F5] tracking-tighter">404</span>
                 </div>
 
                 <h1 className="text-2xl font-bold text-gray-900 mb-3">Page not found</h1>
@@ -25,14 +25,14 @@ export default function NotFoundPage() {
                     </button>
                     <button
                         onClick={() => navigate('/dashboard')}
-                        className="flex items-center gap-2 h-11 px-5 bg-[#00b67a] hover:bg-[#00a36c] rounded-lg text-sm font-medium text-white transition-colors">
+                        className="flex items-center gap-2 h-11 px-5 bg-[#0A86F5] hover:bg-[#0875d4] rounded-lg text-sm font-medium text-white transition-colors">
                         <Home size={16} />
                         Back to Dashboard
                     </button>
                 </div>
 
                 <div className="mt-12 flex items-center justify-center gap-2">
-                    <div className="w-2 h-2 rounded-full bg-[#00b67a]" />
+                    <div className="w-2 h-2 rounded-full bg-[#0A86F5]" />
                     <div className="w-2 h-2 rounded-full bg-gray-200" />
                     <div className="w-2 h-2 rounded-full bg-gray-200" />
                 </div>
