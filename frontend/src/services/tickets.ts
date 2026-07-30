@@ -1,6 +1,26 @@
 import api from '../lib/api'
 
-export const getTickets = (params?: { status?: string; priority?: string; sort?: string }) => api.get('/tickets', { params }).then((r) => r.data)
+export interface TicketsPagination {
+    page: number
+    limit: number
+    total: number
+    totalPages: number
+    hasNext: boolean
+    hasPrev: boolean
+}
+
+export interface TicketsResponse {
+    data: any[]
+    pagination: TicketsPagination
+}
+
+export const getTickets = (params?: {
+    status?: string
+    priority?: string
+    sort?: string
+    page?: number
+    limit?: number
+}) => api.get('/tickets', { params }).then(r => r.data as TicketsResponse)
 
 export const getTicketById = (id: number) => api.get(`/tickets/${id}`).then((r) => r.data)
 

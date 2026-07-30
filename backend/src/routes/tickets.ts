@@ -11,6 +11,9 @@ const router = Router()
 router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
     try {
         const { status, priority, sort } = req.query
+        const page = parseInt(req.query.page as string) || 1
+        const limit = parseInt(req.query.limit as string) || 10
+        const offset  = (page - 1) * limit
 
         let query = sql`
         SELECT
@@ -31,8 +34,24 @@ router.get('/', authenticate, async (req: AuthRequest, res: Response) => {
 
         query = sql`${query} ORDER BY t.created_at ${sort === 'asc' ? sql`ASC` : sql`DESC`}`
 
-        const result = await db.execute(query)
-        res.json(result.rows)
+        const countQuery = sql`SELECT COUNT(*) as total FROM (${query}) as sub`
+        const countResult = await db.execute(countQuery)
+        const total = Number((countResult.rows[0] as any).total)
+
+        const paginatedQuery = sql`${query} LIMIT ${limit} OFFSET ${offset}`
+        const result = await db.execute(paginatedQuery)
+
+        res.json({
+            data: result.rows,
+            pagination: {
+                page,
+                limit,
+                total,
+                totalPages: Math.ceil(total / limit),
+                hasNext: page < Math.ceil(total / limit),
+                hasPrev: page > 1,
+            },
+        })
     } catch (error) {
         console.error(error)
         res.status(500).json({ error: 'Server error' })

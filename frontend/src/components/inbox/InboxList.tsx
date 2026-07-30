@@ -32,10 +32,12 @@ export default function InboxList({ search, folder, checked, onToggleCheck }: Pr
     setPage(1)
   }, [search, folder])
 
-  const { data = [], isLoading } = useQuery({
+  const { data: response, isLoading } = useQuery({
     queryKey: ['inbox-tickets'],
-    queryFn: () => getTickets(),
+    queryFn: () => getTickets({ limit: 100 }),
   })
+
+  const data = response?.data ?? []
 
   const toggleStar = (e: React.MouseEvent, id: number) => {
     e.stopPropagation()
