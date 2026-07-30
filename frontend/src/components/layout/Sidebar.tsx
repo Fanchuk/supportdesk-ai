@@ -6,7 +6,11 @@ import { useQuery } from '@tanstack/react-query'
 import { getCurrentUser } from '../../services/auth'
 import SettingsModal from '../header/SettingsModal'
 
-export default function Sidebar() {
+interface SidebarProps {
+    onClose?: () => void
+}
+
+export default function Sidebar({ onClose }: SidebarProps) {
     const { t } = useTranslation()
     const [settingsOpen, setSettingsOpen] = useState(false)
 
@@ -50,6 +54,7 @@ export default function Sidebar() {
                         <NavLink
                             key={to}
                             to={to}
+                            onClick={onClose}
                             className={({ isActive }) =>
                                 `flex items-center gap-3 px-4 py-3 text-sm font-medium no-underline transition-colors rounded-lg ${
                                     isActive ? 'text-white' : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -72,6 +77,7 @@ export default function Sidebar() {
                         <NavLink
                             key={to}
                             to={to}
+                            onClick={onClose}
                             className={({ isActive }) =>
                                 `flex items-center gap-3 px-4 py-3 text-sm font-medium no-underline transition-colors rounded-lg ${
                                     isActive ? 'text-white' : 'text-white/70 hover:text-white hover:bg-white/10'
@@ -88,7 +94,10 @@ export default function Sidebar() {
                 </nav>
 
                 <div
-                    onClick={() => setSettingsOpen(true)}
+                    onClick={() => {
+                        setSettingsOpen(true)
+                        onClose?.()
+                    }}
                     className="border-t border-white/20 px-6 py-5 flex items-center gap-3 cursor-pointer hover:bg-white/10 transition-colors"
                 >
                     <div className="w-10 h-10 rounded-full bg-white/20 flex-shrink-0 flex items-center justify-center text-white font-semibold text-sm">
