@@ -4,6 +4,8 @@
 
 ### A full-stack customer support & ticketing platform with real-time collaboration and AI-powered replies
 
+🔗 **[Live Demo](https://supportdesk-ai-five.vercel.app)**
+
 [![React](https://img.shields.io/badge/React-19-61DAFB?logo=react&logoColor=white)](https://react.dev/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5-3178C6?logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 [![Node.js](https://img.shields.io/badge/Node.js-Express-339933?logo=node.js&logoColor=white)](https://expressjs.com/)
