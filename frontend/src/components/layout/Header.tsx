@@ -6,7 +6,8 @@ import AddTicketModal from '../header/AddTicketModal'
 import UserMenu from '../header/UserMenu'
 
 export default function Header() {
-  const { dark, toggle } = useTheme()
+  const { theme, setTheme } = useTheme()
+  const isDark = theme === 'dark'
   const [searchOpen, setSearchOpen] = useState(false)
   const [addTicketOpen, setAddTicketOpen] = useState(false)
 
@@ -55,10 +56,10 @@ export default function Header() {
           </button>
 
           <button
-            onClick={toggle}
+            onClick={() => setTheme(isDark ? 'light' : 'dark')}
             className="w-6 h-6 flex items-center justify-center transition-transform hover:scale-110"
           >
-            {dark ? <Sun size={20} className="text-yellow-300" /> : <Moon size={20} className="text-white/70" />}
+            {isDark ? <Sun size={20} className="text-yellow-300" /> : <Moon size={20} className="text-white/70" />}
           </button>
 
           <button

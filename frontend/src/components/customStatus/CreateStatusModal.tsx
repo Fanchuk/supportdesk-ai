@@ -66,7 +66,7 @@ export default function CreateStatusModal({ open, onClose, onCreate }: Props) {
                                         <button key={c} type="button"
                                             onClick={() => setForm(p => ({ ...p, color: c }))}
                                             className={`w-7 h-7 rounded-full transition-transform ${form.color === c ? 'scale-125 ring-2 ring-offset-2' : 'hover:scale-110'}`}
-                                            style={{ backgroundColor: c, ringColor: c }}
+                                            style={{ backgroundColor: c }}
                                         />
                                     ))}
                                     <input type="color" value={form.color}
