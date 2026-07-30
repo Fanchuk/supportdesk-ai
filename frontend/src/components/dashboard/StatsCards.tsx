@@ -8,7 +8,7 @@ import StatsModal from "./StatsModal"
 export default function StatsCards() {
     const { data, isLoading } = useQuery({
         queryKey: ['dashboard-stats'],
-        queryFn: getDashboardStats()
+        queryFn: getDashboardStats
     })
 
     const [selected, setSelected] = useState<{ label: string; value: number; percentage: number } | null>(null)

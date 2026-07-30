@@ -32,7 +32,8 @@ app.use(helmet({
 
 const generalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
-    max: 200,
+    max: 1000,
+    skip: (req) => req.ip === '127.0.0.1' || req.ip === '::1',
     message: { error: 'Too many requests, please try again later.' },
     standardHeaders: true,
     legacyHeaders: false,
@@ -51,6 +52,7 @@ app.use(generalLimiter)
 app.use(cors({
     origin: [
         'http://localhost:5173',
+        'http://localhost:3000',
         'https://supportdesk-ai-five.vercel.app',
     ],
     credentials: true,
