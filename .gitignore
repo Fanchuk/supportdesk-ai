@@ -1,0 +1,14 @@
+# Залежності
+node_modules/
+backend/node_modules/
+
+# Змінні оточення (секрети)
+.env
+.env.local
+
+# Збірки (builds)
+dist/
+build/
+
+# Системні файли
+.DS_Store
