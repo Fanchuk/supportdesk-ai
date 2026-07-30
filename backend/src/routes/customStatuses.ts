@@ -42,10 +42,15 @@ router.patch('/:id', authenticate, async (req: AuthRequest, res: Response) => {
             isActive: z.boolean().optional(),
         })
         const body = schema.parse(req.body)
-        const id = parseInt(req.params.id as string)
+        const id = parseInt(req.params.id)
 
         const [status] = await db.update(customStatuses)
-            .set(body)
+            .set({
+                ...(body.label !== undefined && { label: body.label }),
+                ...(body.color !== undefined && { color: body.color }),
+                ...(body.description !== undefined && { description: body.description }),
+                ...(body.isActive !== undefined && { isActive: body.isActive }),
+            })
             .where(eq(customStatuses.id, id))
             .returning()
 
