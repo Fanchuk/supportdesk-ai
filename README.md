@@ -39,6 +39,7 @@ The project was built as a **full-stack portfolio piece** to demonstrate end-to-
 
 ### 🎟️ Ticket Management
 - Create, view, sort, and manage support tickets
+- Server-side **pagination** with page navigation
 - Ticket detail pages with full conversation threads
 - Priority levels (high / medium / low) and custom statuses
 - Real-time messaging with AI-powered reply suggestions
@@ -71,8 +72,18 @@ The project was built as a **full-stack portfolio piece** to demonstrate end-to-
 ### ⚙️ Settings & UX
 - **Dark Mode** — full theme switching with persistence
 - **Internationalization (i18n)** — English & Ukrainian support
+- **Skeleton loaders** — smooth content-aware loading states instead of spinners
+- **Empty states** — illustrated empty states across all pages
+- **Mobile responsive** — hamburger menu and collapsible sidebar for all screen sizes
+- **Real-time notifications** — WebSocket push notifications in the header
 - Profile management, notification preferences, and security settings
 - Custom ticket statuses and saved answer templates
+
+### 🔒 Security
+- **Rate limiting** — API protected with `express-rate-limit` (200 req / 15 min general, 20 req / 15 min for auth)
+- **Helmet.js** — HTTP security headers on all responses
+- **JWT authentication** — token-based auth with role-based access control
+- **Input validation** — all endpoints validated with Zod schemas
 
 ---
 
@@ -92,6 +103,7 @@ The project was built as a **full-stack portfolio piece** to demonstrate end-to-
 | **Lucide React** | Icon system |
 | **react-i18next** | Internationalization (EN / UA) |
 | **react-hot-toast** | Toast notifications |
+| **rc-pagination** | Pagination component |
 
 ### Backend
 | Technology | Purpose |
@@ -105,6 +117,8 @@ The project was built as a **full-stack portfolio piece** to demonstrate end-to-
 | **bcrypt** | Password hashing |
 | **ws (WebSocket)** | Real-time collaboration & chat |
 | **Anthropic API** | AI-powered reply suggestions |
+| **Helmet** | HTTP security headers |
+| **express-rate-limit** | API rate limiting |
 
 ---
 
@@ -131,7 +145,7 @@ supportdesk-ai/
     │   ├── components/          # Feature-grouped UI components
     │   ├── services/            # Typed API client functions
     │   ├── context/             # Theme context
-    │   ├── hooks/               # Custom hooks (WebSocket, etc.)
+    │   ├── hooks/               # Custom hooks (WebSocket, notifications)
     │   ├── i18n/                # Translation files (en / ua)
     │   ├── lib/                 # Axios instance
     │   └── App.tsx              # Route definitions
@@ -143,6 +157,7 @@ supportdesk-ai/
 - **Typed API layer** — all backend calls go through dedicated service functions, keeping components clean and endpoints centralized.
 - **Feature-grouped components** — UI is organized by domain (assignment, automation, sla, etc.) rather than by type.
 - **Dual-channel real-time** — collaboration combines REST (for persistence) with WebSockets (for instant delivery).
+- **In-memory caching** — dashboard stats cached server-side for 60 seconds to reduce DB load.
 
 ---
 
@@ -203,7 +218,7 @@ Password: password123
 | Resource | Endpoints |
 |---|---|
 | **Auth** | `POST /api/auth/login` · `POST /api/auth/register` · `GET /api/auth/me` · `PATCH /api/auth/me` |
-| **Tickets** | `GET /api/tickets` · `POST /api/tickets` · `GET /api/tickets/:id` · `PATCH /api/tickets/:id` |
+| **Tickets** | `GET /api/tickets?page=1&limit=10` · `POST /api/tickets` · `GET /api/tickets/:id` · `PATCH /api/tickets/:id` |
 | **Messages** | `POST /api/tickets/:id/messages` · `POST /api/tickets/:id/messages/ai-reply` |
 | **Teams** | `GET /api/teams` · `POST /api/teams` · `POST /api/teams/:id/members` |
 | **Assignment Rules** | `GET /api/assignment-rules` · `POST` · `PATCH /:id` |
@@ -221,9 +236,12 @@ Password: password123
 - **Optimistic UI** — toggles and edits update instantly, then reconcile with the server, rolling back gracefully on error.
 - **Real-time collaboration** — multiple agents can work on the same ticket, chatting live via WebSockets while messages persist to the database.
 - **AI replies** — generate contextual, professional response suggestions using the Anthropic API.
+- **Server-side pagination** — tickets load page by page with full metadata (`total`, `hasNext`, `hasPrev`).
+- **In-memory caching** — dashboard stats cached for 60 seconds to reduce database load.
 - **Dark mode** — a system-aware theme toggle persisted to local storage.
 - **i18n** — seamless English ↔ Ukrainian switching without a page reload.
-- **Fully responsive** — works across desktop, tablet, and mobile.
+- **Skeleton loaders** — content-aware loading skeletons for better perceived performance.
+- **Fully responsive** — collapsible sidebar with hamburger menu on mobile.
 
 ---
 
