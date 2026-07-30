@@ -42,7 +42,7 @@ router.patch('/:id', authenticate, async (req: AuthRequest, res: Response) => {
             isActive: z.boolean().optional(),
         })
         const body = schema.parse(req.body)
-        const id = parseInt(req.params.id)
+        const id = parseInt(req.params.id as string)
 
         const [status] = await db.update(customStatuses)
             .set({
@@ -64,7 +64,7 @@ router.patch('/:id', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.delete('/:id', authenticate, async (req: AuthRequest, res: Response) => {
     try {
-        const id = parseInt(req.params.id)
+        const id = parseInt(req.params.id as string)
         const [status] = await db.delete(customStatuses).where(eq(customStatuses.id, id)).returning()
         if (!status) return res.status(404).json({ error: 'Status not found' })
         res.json(status)

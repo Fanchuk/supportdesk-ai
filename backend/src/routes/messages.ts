@@ -14,7 +14,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
         })
 
         const data = schema.parse(req.body)
-        const ticketId = parseInt(req.params.id)
+        const ticketId = parseInt(req.params.id as string)
 
         const [message] = await db.insert(messages).values({
             body: data.body,
@@ -38,7 +38,7 @@ router.post('/', authenticate, async (req: AuthRequest, res: Response) => {
 
 router.post('/ai-reply', authenticate, async (req: AuthRequest, res: Response) => {
     try {
-        const ticketId = parseInt(req.params.id)
+        const ticketId = parseInt(req.params.id as string)
 
         const ticketResult = await db.execute(sql`
             SELECT * FROM tickets WHERE id = ${ticketId}
