@@ -12,7 +12,8 @@ export function useSessionChat(sessionId: number | null, initialMessages: any[])
         if (!sessionId) return
 
         const token = localStorage.getItem('token')
-        ws.current = new WebSocket(`ws://localhost:3000?token=${token}`)
+        const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:3000'
+        ws.current = new WebSocket(`${WS_URL}?token=${token}`)
 
         ws.current.onopen = () => {
             ws.current?.send(JSON.stringify({ type: 'join', sessionId }))

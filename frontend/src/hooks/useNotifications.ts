@@ -15,7 +15,8 @@ export function useNotifications() {
         const token = localStorage.getItem('token')
         if (!token) return
 
-        const ws = new WebSocket(`ws://localhost:3000?token=${token}`)
+        const WS_URL = import.meta.env.VITE_WS_URL || 'ws://localhost:3000'
+        const ws = new WebSocket(`${WS_URL}?token=${token}`)
 
         ws.onmessage = (event) => {
             try {
